@@ -334,7 +334,7 @@ footer small a:first-child{margin-left:0}
 </main>
 
 <div class="hud" id="hud" aria-hidden="true"><div class="yr" id="hudY">2006</div><div class="bar"><i id="hudB"></i></div></div>
-<footer><div class="wrap"><span id="copy">© 2026 Mauricio Celedón Baza</span><small><a href="mailto:maurocelba@gmail.com">maurocelba@gmail.com</a><a href="https://www.linkedin.com/in/mauricio-celedon-baza-5a5bb058" target="_blank" rel="noopener">LinkedIn</a></small></div></footer>
+<footer><div class="wrap"><span id="copy">© 2026 Mauricio Celedón Baza</span><small><a id="mailLink" href="#" data-mu="contacto" data-md="maurocelba" data-mt="com">contacto [at] maurocelba [dot] com</a><a href="https://www.linkedin.com/in/mauricio-celedon-baza-5a5bb058" target="_blank" rel="noopener">LinkedIn</a></small></div></footer>
 
 <script>
 (function(){
@@ -846,6 +846,7 @@ function setLang(l){
   if(l===LANG) return; LANG=l; try{ localStorage.setItem("mc-lang",l); }catch(e){}
   buildStatic(); buildRows(); buildCV(); if(SECS[cur]) buildSection(cur); measure();
 }
+(function(){ var a=$("mailLink"); if(!a) return; var m=a.dataset.mu+"\u0040"+a.dataset.md+"."+a.dataset.mt; a.textContent=m; a.href="mai"+"lto:"+m; })();
 buildName(); buildStatic(); buildRows(); buildCV();
 var h0=location.hash.slice(1); if(h0&&h0!=="inicio"&&document.getElementById(h0)) show(h0); else { measure(); startLoop(); }
 function favicon(){ try{ var c=document.createElement("canvas"); c.width=c.height=64; var x=c.getContext("2d");
