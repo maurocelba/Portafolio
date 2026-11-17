@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mauricio Celedón Portafolio</title>
+<link rel="icon" id="fav" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f3efe4'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-size='29' font-weight='700' fill='%2315235c'%3EMC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* Time and how it is perceived. The home page starts in a deep blue and clears toward today.
+   One line crosses it. Its frequency follows a scale of consciousness from 160 to 300:
+   it starts slow and wide, and grows denser, steadier and faster as the years pass.
+   The stages are never named; colour, the line and what moves behind it carry them, and each opens with a milestone.
+   Each section has its own ground: sky for projects, blackboard for teaching, blueprint for implementation, paper for the CV. */
+:root{
+  color-scheme: light dark;
+  --bg:#15235c; --fg:#f3efe4; --acc:#f6cf4a;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --name:"Fraunces",Georgia,"Times New Roman",serif;
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+body{--mut:color-mix(in srgb,var(--fg) 74%,transparent);--rule:color-mix(in srgb,var(--fg) 16%,transparent);
+  --kp:#8ea6ff; --kd:#3fd6c4; --kq:#f58fcb; --kh:#f6cf4a}
+body.lite{--kp:#2a48d8; --kd:#0b8577; --kq:#a8327f; --kh:#9a6400; --acc:#9a6400}
+body[data-view="proyectos"]{--bg:#e4edff;--fg:#0f1a3a;--acc:#2a48d8}
+body[data-view="docencia"]{--bg:#0f322c;--fg:#f1efe2;--acc:#ffe08a}
+body[data-view="implementador"]{--bg:#f5edf4;--fg:#2a1230;--acc:#9a3478}
+body[data-view="cv"]{--bg:#f7f0df;--fg:#0f1a3a;--acc:#9a6400}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background-color:var(--bg);color:var(--fg);font:400 16px/1.5 var(--display);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+body:not([data-view="inicio"]){transition:background-color .5s}
+body[data-view="proyectos"]{background-image:linear-gradient(180deg,#d6e4ff 0,#eef3ff 46%,#f8faff 100%);background-attachment:fixed}
+body[data-view="docencia"]{background-image:radial-gradient(40vw 26vw at 12% 18%,rgba(241,239,226,.07),transparent 70%),radial-gradient(34vw 22vw at 88% 62%,rgba(241,239,226,.06),transparent 70%),radial-gradient(60vw 30vw at 50% 110%,rgba(255,224,138,.07),transparent 70%);background-attachment:fixed}
+body[data-view="implementador"]{background-image:radial-gradient(50vw 34vw at 95% 5%,rgba(176,74,140,.13),transparent 70%),radial-gradient(44vw 30vw at 0% 90%,rgba(106,63,176,.1),transparent 70%);background-attachment:fixed}
+body[data-view="cv"]{background-image:radial-gradient(60vw 60vw at 100% 0,rgba(240,179,35,.28),transparent 60%),radial-gradient(50vw 50vw at 0 100%,rgba(31,54,199,.1),transparent 60%);background-attachment:fixed}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit;padding:0}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:.95}
+p{text-align:justify;-webkit-hyphens:auto;hyphens:auto}
+.mono{font:500 11.5px/1.4 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.wrap{width:min(1240px,100%);margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.lg{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--mut);font:500 9.5px/1 var(--mono);letter-spacing:.02em;color:var(--fg);flex:none;vertical-align:middle}
+
+/* soft light behind the projects page */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .6s}
+body[data-view="proyectos"] .bg{opacity:1}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);background:#fff;will-change:transform}
+.blob.a{width:46vw;height:22vw;left:-8vw;top:12vh;animation:driftA 38s ease-in-out infinite alternate}
+.blob.b{width:40vw;height:18vw;right:-6vw;top:38vh;background:#c9d9ff;animation:driftB 46s ease-in-out infinite alternate}
+@keyframes driftA{to{transform:translate(12vw,3vh)}}
+@keyframes driftB{to{transform:translate(-14vw,-4vh)}}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+
+/* top panel */
+.nav{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;gap:14px;min-height:58px}
+.mark{display:flex;align-items:center;gap:10px;font:500 20px/1 var(--name);font-variation-settings:"opsz" 30,"SOFT" 60;letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
+.mark i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--fg);color:var(--bg);font:700 13px/1 var(--name);font-style:normal;letter-spacing:0}
+.nav nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav nav::-webkit-scrollbar{display:none}
+.nav nav a{position:relative;font:500 15px/1 var(--display);font-variation-settings:"wdth" 92;text-decoration:none;color:var(--mut);padding:11px 12px;white-space:nowrap;transition:color .2s}
+.nav nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:5px;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.nav nav a:hover,.nav nav a.on{color:var(--fg)}
+.nav nav a:hover::after,.nav nav a.on::after{transform:scaleX(1)}
+.lang{display:flex;gap:6px;align-items:center;flex:none}
+.lang button{display:block;width:26px;height:18px;border-radius:3px;overflow:hidden;opacity:.45;box-shadow:0 0 0 1px var(--rule);transition:opacity .2s,transform .2s,box-shadow .2s}
+.lang button svg{display:block;width:100%;height:100%}
+.lang button:hover{opacity:.85;transform:translateY(-1px)}
+.lang button.on{opacity:1;box-shadow:0 0 0 2px var(--acc)}
+
+.view{display:none;padding-bottom:30px}
+.view.on{display:block;animation:viewIn .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:.3;transform:translateY(14px)}}
+.wipe{position:fixed;inset:0;z-index:50;background:linear-gradient(165deg,#2646a3,#15235c 70%);color:#f3efe4;display:grid;place-items:center;transform:translateY(101%);pointer-events:none;text-align:center}
+.wipe.in{transition:transform .42s cubic-bezier(.76,0,.24,1);transform:none}
+.wipe.out{transition:transform .5s cubic-bezier(.76,0,.24,1);transform:translateY(-101%)}
+.wipe b{display:block;font:300 clamp(46px,10vw,140px)/.9 var(--name);font-style:italic;letter-spacing:-.02em}
+
+/* hero: the name comes into focus over a living frequency */
+.hero{position:relative;padding:clamp(30px,6vw,80px) 0 18px}
+#heroCv{position:absolute;left:calc(-1 * clamp(16px,4vw,44px));right:calc(-1 * clamp(16px,4vw,44px));top:0;height:clamp(300px,52vw,620px);width:calc(100% + 2 * clamp(16px,4vw,44px));pointer-events:none;z-index:0}
+.hero>*{position:relative;z-index:1}
+.hero #heroCv{position:absolute;z-index:0}
+.name{font-family:var(--name);font-weight:480;font-size:clamp(56px,11.4vw,172px);line-height:.92;letter-spacing:-.025em;margin:14px 0 0;font-variation-settings:"opsz" 144,"SOFT" 60,"WONK" 1;text-shadow:0 0 60px color-mix(in srgb,var(--fg) 18%,transparent)}
+.name .w{display:block;white-space:nowrap}
+.name .w:nth-child(2){padding-left:.9em}
+.name .w:nth-child(3){padding-left:1.8em;font-style:italic}
+.name .ch{display:inline-block;font-variation-settings:"opsz" 144,"wght" var(--wg,480),"SOFT" 60,"WONK" 1;transition:font-variation-settings .45s cubic-bezier(.2,.8,.2,1);animation:focusIn 1.5s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--n) * 55ms)}
+@keyframes focusIn{from{opacity:0;filter:blur(18px);transform:translateY(.22em);font-variation-settings:"opsz" 144,"wght" 120,"SOFT" 100,"WONK" 1}}
+.hero .sub{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,5vw,72px);align-items:end;margin-top:clamp(26px,4vw,48px)}
+.thesis{font:italic 400 clamp(28px,3.8vw,50px)/1.06 var(--serif);margin:0;max-width:20ch;letter-spacing:-.01em;text-align:left}
+.bio{margin:0;font-size:clamp(16px,1.45vw,18.5px);max-width:48ch;color:color-mix(in srgb,var(--fg) 88%,transparent)}
+.three{display:flex;flex-wrap:wrap;gap:clamp(22px,5vw,72px);margin-top:clamp(30px,5vw,56px)}
+.three a{text-decoration:none;display:block;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.three a:hover{transform:translateY(-5px)}
+.three b{display:block;font:300 clamp(54px,7.4vw,104px)/.85 var(--name);font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.03em}
+.three span{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:15px;color:var(--mut)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.marq{margin-top:34px;overflow:hidden;white-space:nowrap;-webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marq div{display:inline-flex;gap:26px;padding:6px 0;animation:marq 60s linear infinite}
+.marq .lg{width:46px;height:46px;font-size:12px;border-color:var(--rule)}
+@keyframes marq{to{transform:translateX(-50%)}}
+.tl-head{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:end;justify-content:space-between;margin:clamp(44px,7vw,96px) 0 0}
+.tl-head h2{font:300 clamp(38px,6vw,84px)/.95 var(--name);letter-spacing:-.025em}
+.tl-head h2 em{font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--mut)}
+.legend span{display:flex;align-items:center;gap:8px}
+
+/* the line and what hangs from it */
+.tline{position:relative;margin-top:10px}
+#lineCv{position:sticky;top:0;display:block;width:100%;height:100vh;margin-bottom:-100vh;pointer-events:none;z-index:0}
+.row{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 170px minmax(0,1fr);padding:16px 0}
+.row.gate{padding-top:clamp(90px,14vw,170px)}
+.row.L .it{grid-column:1;justify-self:end;text-align:right}
+.row.R .it{grid-column:3;justify-self:start}
+.it{width:min(100%,420px);will-change:opacity,transform,filter}
+.it h3{font-size:20px;font-weight:650;font-variation-settings:"wdth" 90;line-height:1.15;margin:0;letter-spacing:-.005em}
+.it h3 a{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1.5px no-repeat;transition:background-size .35s cubic-bezier(.2,.8,.2,1)}
+.it h3 a:hover{background-size:100% 1.5px}
+.it .when{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin-top:5px;font:500 11.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.it .rl{margin-top:7px;font:600 16.5px/1.25 var(--display);font-variation-settings:"wdth" 92;color:var(--k)}
+.it .ent{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:8px;font-size:14px;color:var(--mut)}
+.row.L .it .when,.row.L .it .ent{justify-content:flex-end}
+.it .ent a{text-underline-offset:3px;text-decoration-color:var(--rule)}
+.it .ent a:hover{color:var(--fg);text-decoration-color:currentColor}
+.now-row{position:relative;z-index:1;text-align:center;padding:90px 0 40px}
+.now-row b{display:block;font:300 clamp(64px,12vw,170px)/.85 var(--name);font-style:italic;letter-spacing:-.03em}
+.now-row p{margin:14px auto 0;max-width:40ch;color:var(--mut);text-align:center}
+.hud{position:fixed;left:50%;bottom:clamp(10px,2vw,22px);z-index:25;pointer-events:none;opacity:0;transform:translate(-50%,14px);transition:opacity .4s,transform .4s;display:flex;align-items:center;gap:14px;padding:6px 20px 8px;border-radius:999px;background:color-mix(in srgb,var(--bg) 82%,transparent);border:1px solid var(--rule);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.hud.on{opacity:1;transform:translate(-50%,0)}
+.hud .yr{font:300 clamp(28px,3.4vw,44px)/.95 var(--name);font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.03em}
+.hud .bar{width:clamp(70px,10vw,150px);height:3px;background:var(--rule);border-radius:3px;overflow:hidden}
+.hud .bar i{display:block;height:100%;width:0;background:var(--fg)}
+
+/* section pages */
+.shead{padding:clamp(30px,5vw,64px) 0 0}
+.shead h2{font-size:clamp(34px,10.4vw,150px);font-weight:800;font-variation-settings:"wdth" 78;text-transform:uppercase;letter-spacing:-.02em;line-height:.84;-webkit-hyphens:none;hyphens:none}
+.shead h2 span{display:inline-block;animation:rise .9s cubic-bezier(.2,.9,.2,1) both}
+@keyframes rise{from{transform:translateY(105%)}}
+.shead .lead{font:italic 400 clamp(21px,2.5vw,32px)/1.1 var(--serif);max-width:38ch;margin:16px 0 0;color:color-mix(in srgb,var(--fg) 88%,transparent);text-align:left}
+.kpis{display:flex;flex-wrap:wrap;gap:clamp(20px,5vw,72px);margin-top:clamp(22px,3.4vw,40px)}
+.kpis b{display:block;font:800 clamp(40px,5.6vw,78px)/.88 var(--display);font-variation-settings:"wdth" 78;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--acc)}
+.kpis b.pend{font:italic 400 clamp(26px,3vw,38px)/1.25 var(--serif);letter-spacing:0;opacity:.8}
+.kpis span{display:block;margin-top:6px;font-size:14.5px;color:var(--mut);max-width:24ch}
+
+/* section timelines: one calm track per item, a year grid and today */
+.band{position:relative;overflow-x:auto;overflow-y:hidden;margin:clamp(24px,3.4vw,40px) 0 0;scrollbar-width:thin;-webkit-overflow-scrolling:touch;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.chart{position:relative}
+.c-docencia,.c-implementador{border:0;border-radius:18px;background:color-mix(in srgb,var(--bg) 55%,transparent);box-shadow:inset 0 0 0 1px var(--rule)}
+.c-docencia{background:color-mix(in srgb,#0b2723 80%,transparent)}
+.c-implementador{background:color-mix(in srgb,#fff 70%,transparent)}
+.lane{position:absolute;left:0;right:0;border-top:1px solid var(--rule)}
+.lane.alt{background:color-mix(in srgb,var(--fg) 3.5%,transparent)}
+.lane b{position:sticky;left:0;display:inline-block;margin:10px 0 0 14px;font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--acc);background:color-mix(in srgb,#fff 80%,transparent);padding:4px 7px;border-radius:5px}
+.c-implementador .bar.ln-bpo i{background:linear-gradient(90deg,#c9b6ee,#6a3fb0)}
+.c-implementador .bar.ln-bpo.on i{background:linear-gradient(90deg,#4a2a80,#24133f)}
+.c-implementador .bar.ln-aud i{width:14px;height:14px;margin-left:1px;clip-path:none;transform:rotate(45deg);background:#1b8a8a;border:2px solid #fff;box-shadow:0 0 0 1px rgba(27,138,138,.4);animation:pop .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i) * 25ms)}
+.c-implementador .bar.ln-aud:hover i{background:#11a3a3}
+.c-implementador .bar.ln-aud.on i{background:#2a1230}
+.gl{position:absolute;top:0;bottom:0;width:1px;background:var(--rule)}
+.gl em{position:absolute;top:8px;left:5px;font:500 10.5px/1 var(--mono);font-style:normal;color:var(--mut);font-variant-numeric:tabular-nums}
+.gl.odd em{opacity:.55}
+.today{position:absolute;top:0;bottom:0;width:0;border-left:2px dashed var(--acc)}
+.today em{position:absolute;bottom:6px;left:6px;font:500 10.5px/1 var(--mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.trk{position:absolute;left:0;right:0;height:1px;background:color-mix(in srgb,var(--fg) 6%,transparent)}
+.bar{position:absolute;height:32px;display:flex;align-items:center;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bar i{position:relative;display:block;width:100%;transform-origin:left center;animation:grow .9s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i) * 40ms);transition:background .25s,filter .25s,box-shadow .25s}
+@keyframes grow{from{transform:scaleX(0);opacity:0}}
+.bar .nm,.mk .nm{position:absolute;left:0;bottom:calc(100% + 4px);width:max-content;max-width:250px;white-space:normal;text-align:left;padding:9px 12px 10px;border-radius:10px;background:var(--bg);color:var(--fg);border:1px solid var(--rule);box-shadow:0 14px 30px -14px rgba(0,0,0,.45);opacity:0;transform:translateY(5px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:6}
+.nm b{display:block;font-size:13.5px;font-weight:650;line-height:1.25;text-wrap:balance}
+.nm small{display:block;margin-top:5px;font:500 10.5px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.nm em{display:block;margin-top:3px;font-style:normal;font-size:12.5px;font-weight:600;color:var(--acc)}
+.bar.dn .nm,.mk.dn .nm{bottom:auto;top:calc(100% + 4px);transform:translateY(-5px)}
+.bar.rt .nm,.mk.rt .nm{left:auto;right:0}
+.bar:hover .nm,.bar:focus-visible .nm,.bar.on .nm,.mk:hover .nm,.mk:focus-visible .nm{opacity:1;transform:none}
+.bar:not(.on) .nm{z-index:7}
+.chart:hover .bar.on:not(:hover) .nm{opacity:0}
+.mk{position:absolute;width:0;height:32px;display:flex;align-items:center;z-index:2;cursor:default;outline:none}
+.mk:hover,.mk:focus-visible{z-index:8}
+.mk i{position:absolute;left:-8px;width:16px;height:16px;transform:rotate(45deg);background:#f0b323;border:2px solid #fff;box-shadow:0 0 0 1px rgba(154,100,0,.4);animation:pop .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i) * 80ms + .3s)}
+@keyframes pop{from{transform:rotate(45deg) scale(0)}}
+.sprof{max-width:72ch;margin:16px 0 0;font-size:clamp(15.5px,1.3vw,17px);line-height:1.6;color:color-mix(in srgb,var(--fg) 86%,transparent)}
+.det dd .src{display:block;margin-top:2px;font:500 11px/1.4 var(--mono);letter-spacing:.04em;color:var(--mut)}
+.bar:hover,.bar:focus-visible{z-index:8}.bar.on{z-index:5}
+/* projects: a trail that ends in a point of light */
+.c-proyectos .bar i{height:8px;border-radius:999px;background:linear-gradient(90deg,rgba(42,72,216,.05),rgba(42,72,216,.6))}
+.c-proyectos .bar i::after{content:"";position:absolute;right:-6px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:#2a48d8;box-shadow:0 0 0 4px rgba(42,72,216,.16)}
+.c-proyectos .bar:hover i{background:linear-gradient(90deg,rgba(42,72,216,.1),#2a48d8)}
+.c-proyectos .bar.on i{background:linear-gradient(90deg,rgba(15,26,58,.15),#0f1a3a)}
+.c-proyectos .bar.on i::after{background:#0f1a3a;animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(42,72,216,.45)}100%{box-shadow:0 0 0 14px rgba(42,72,216,0)}}
+/* teaching: chalk outlines */
+.c-docencia .bar i{height:14px;border-radius:999px;border:2px solid #ffe08a;background:rgba(255,224,138,.1)}
+.c-docencia .bar:hover i{background:rgba(255,224,138,.35)}
+.c-docencia .bar.on i{background:#ffe08a;border-color:#fff}
+/* implementation: machined hexagonal parts */
+.c-implementador .bar i{height:18px;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,9px 100%,0 50%);background:linear-gradient(90deg,#e7b3d6,#b04a8c)}
+.c-implementador .bar:hover i{filter:brightness(1.08) saturate(1.2)}
+.c-implementador .bar.on i{background:linear-gradient(90deg,#6b2a5a,#2a1230)}
+
+.det{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(20px,4vw,60px);margin-top:clamp(24px,3vw,40px);align-items:start}
+.det.show .dl>*{animation:stIn .65s cubic-bezier(.2,.8,.2,1) both}
+.det.show .dl>*:nth-child(2){animation-delay:.05s}.det.show .dl>*:nth-child(3){animation-delay:.1s}.det.show .dl>*:nth-child(4){animation-delay:.15s}.det.show .dl>*:nth-child(5){animation-delay:.2s}.det.show .dl>*:nth-child(6){animation-delay:.25s}.det.show .dl>*:nth-child(7){animation-delay:.3s}
+.det.show .slot{animation:slotIn .9s cubic-bezier(.2,.8,.2,1) both}.det.show .slot:nth-child(2){animation-delay:.12s}
+@keyframes stIn{from{opacity:0;transform:translateY(22px)}}
+@keyframes slotIn{from{opacity:0;transform:scale(.94)}}
+.det .yr{font:200 clamp(44px,7vw,104px)/.85 var(--display);font-variation-settings:"wdth" 78;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--acc)}
+.det .ents{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:18px;font-size:15.5px}
+.det .ents span.e{display:inline-flex;align-items:center;gap:8px}
+.det .ents a{text-underline-offset:3px}
+.det h3{font-size:clamp(26px,3.3vw,44px);font-weight:750;font-variation-settings:"wdth" 86;line-height:1.02;margin-top:12px;letter-spacing:-.01em}
+.det .when{margin-top:10px;font:500 12.5px/1.5 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.det .rl{margin-top:8px;font:650 clamp(19px,1.8vw,23px)/1.2 var(--display);font-variation-settings:"wdth" 92;color:var(--acc)}
+.det .desc{margin:14px 0 0;max-width:56ch;font-size:16.5px;color:color-mix(in srgb,var(--fg) 88%,transparent)}
+.det dl{margin:18px 0 0}
+.det dl div{display:grid;grid-template-columns:128px minmax(0,1fr);gap:12px;padding:9px 0;border-top:1px solid var(--rule)}
+.det dt{font:500 11px/1.7 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.det dd{margin:0}
+.det dd.pend{font:italic 400 17px/1.4 var(--serif);color:var(--mut)}
+.snav{display:flex;align-items:center;gap:8px;margin-top:18px}
+.snav button{width:46px;height:40px;border:1px solid var(--fg);border-radius:999px;font:500 16px/1 var(--mono);text-align:center;transition:background .2s,color .2s,transform .2s}
+.snav button:hover{background:var(--fg);color:var(--bg);transform:scale(1.06)}
+.snav span{font:500 12px/1 var(--mono);letter-spacing:.08em;color:var(--mut);margin:0 6px;font-variant-numeric:tabular-nums}
+.dr{display:grid;gap:16px}
+.slot{aspect-ratio:16/10;border-radius:30px 30px 30px 8px;background:color-mix(in srgb,var(--fg) 7%,transparent);display:grid;place-items:center;text-align:center}
+.slot b{display:block;font:italic 400 clamp(26px,3vw,40px)/1 var(--serif)}
+
+/* cv */
+.cv{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(26px,5vw,72px);margin-top:clamp(24px,3.4vw,40px)}
+.prof{font-size:clamp(17px,1.7vw,20px);max-width:62ch;margin:18px 0 0}
+.job{position:relative;padding:0 0 30px 26px}
+.job::before{content:"";position:absolute;left:0;top:6px;bottom:14px;width:5px;border-radius:5px;background:linear-gradient(180deg,#f0b323,#e062b0,#1f36c7,#19b3a3,#f0b323);background-size:100% 400%;animation:hue 9s linear infinite;animation-delay:var(--dl,0s)}
+@keyframes hue{to{background-position:0 400%}}
+.job h3{font-size:clamp(22px,2.4vw,30px);font-weight:750;font-variation-settings:"wdth" 88;line-height:1.05}
+.job .co{margin-top:6px;font-size:17px;font-weight:600}
+.job .co a{text-underline-offset:3px}
+.job .wh{margin-top:3px;font:500 12px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.job h4{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin:14px 0 6px}
+.job ul{margin:0;padding-left:18px}
+.job li{margin:3px 0;text-align:justify;-webkit-hyphens:auto;hyphens:auto}
+.side h3{font:italic 400 30px/1 var(--serif);margin:0 0 8px;color:var(--acc)}
+.side ul{list-style:none;margin:0 0 28px;padding:0}
+.side li{padding:8px 0;border-top:1px solid var(--rule);font-size:15px}
+.side li small{display:block;color:var(--mut);font-size:13.5px}
+
+footer{position:relative;z-index:1;padding:26px 0 30px;font-size:13px;color:var(--mut)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;justify-content:space-between}
+footer small{font:500 11.5px/1.5 var(--mono);letter-spacing:.04em}
+footer small a{color:var(--acc);text-underline-offset:3px;margin-left:14px}
+footer small a:first-child{margin-left:0}
+
+@media (max-width:860px){
+  .hero .sub,.cv,.det{grid-template-columns:minmax(0,1fr)}
+  .row{grid-template-columns:52px minmax(0,1fr)}
+  .row.L .it,.row.R .it{grid-column:2;justify-self:start;text-align:left}
+  .row.L .it .when,.row.L .it .ent{justify-content:flex-start}
+  .now-row{text-align:left;padding-left:52px}
+  .now-row p{text-align:left;margin-left:0}
+  .hud .bar{display:none}
+  .bar.on .nm{opacity:0}
+  .bar.on:hover .nm{opacity:1}
+}
+@media (max-width:640px){
+  .nav .wrap{flex-wrap:wrap;gap:0 10px;padding-top:8px}
+  .mark .full{display:none}
+  .lang{margin-left:auto}
+  .nav nav{order:3;width:100%;margin:2px 0 0;justify-content:space-between}
+  .nav nav a{font-size:14px;padding:10px 6px 12px}
+  .nav nav a::after{left:6px;right:6px;bottom:4px}
+  .name .w:nth-child(2){padding-left:.5em}
+  .name .w:nth-child(3){padding-left:1em}
+  .it h3{font-size:18px}
+  .it .rl{font-size:15.5px}
+  .det dl div{grid-template-columns:104px minmax(0,1fr)}
+  .row.gate{padding-top:80px}
+  footer small a{margin-left:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body data-view="inicio">
+<div class="bg" aria-hidden="true"><div class="blob a"></div><div class="blob b"></div></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="wipe" id="wipe" aria-hidden="true"><b id="wipeT"></b></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#inicio" data-go="inicio" aria-label="Mauricio Celedón"><i aria-hidden="true">MC</i><span class="full">Mauricio Celedón</span></a>
+    <nav id="navlinks"></nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-l="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></button>
+      <button type="button" data-l="en" aria-label="English"><svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="ukc"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#ukc)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="view on" id="inicio">
+  <div class="wrap">
+    <div class="hero" id="hero">
+      <canvas id="heroCv" aria-hidden="true"></canvas>
+      <div class="mono" data-u="eyebrow"></div>
+      <h1 class="name" id="name" aria-label="Mauricio Celedón Baza"></h1>
+      <div class="sub">
+        <p class="thesis" data-u="thesis"></p>
+        <p class="bio" data-u="bio"></p>
+      </div>
+      <div class="three" id="three"></div>
+      <div class="marq" aria-hidden="true"><div id="marq"></div></div>
+    </div>
+    <div class="tl-head">
+      <h2 data-u="tlhead"></h2>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+  <div class="tline" id="tline">
+    <canvas id="lineCv" aria-hidden="true"></canvas>
+    <div class="wrap" id="rows"></div>
+  </div>
+</section>
+
+<section class="view" id="proyectos"><div class="wrap"></div></section>
+<section class="view" id="docencia"><div class="wrap"></div></section>
+<section class="view" id="implementador"><div class="wrap"></div></section>
+<section class="view" id="cv"><div class="wrap" id="cvWrap"></div></section>
+</main>
+
+<div class="hud" id="hud" aria-hidden="true"><div class="yr" id="hudY">2006</div><div class="bar"><i id="hudB"></i></div></div>
+<footer><div class="wrap"><span id="copy">© 2026 Mauricio Celedón Baza</span><small><a href="mailto:maurocelba@gmail.com">maurocelba@gmail.com</a><a href="https://www.linkedin.com/in/mauricio-celedon-baza-5a5bb058" target="_blank" rel="noopener">LinkedIn</a></small></div></footer>
+
+<script>
+(function(){
+"use strict";
+var RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
+function el(tag,cls,html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+function $(id){ return document.getElementById(id); }
+
+/* ---------------- language ---------------- */
+var LANG="es"; try{ var sv=localStorage.getItem("mc-lang"); if(sv==="en"||sv==="es") LANG=sv; }catch(e){}
+function tr(v){ return Array.isArray(v)?v[LANG==="en"?1:0]:(v==null?"":v); }
+function dm(w){ if(LANG!=="en") return w; return w.replace(/\bEne\b/g,"Jan").replace(/\bAbr\b/g,"Apr").replace(/\bAgo\b/g,"Aug").replace(/\bDic\b/g,"Dec"); }
+function fmt(n){ return n.toLocaleString(LANG==="en"?"en-GB":"es-CO"); }
+var U={
+ eyebrow:["Portafolio · 2006 — 2026","Portfolio · 2006 — 2026"],
+ thesis:["Lo que vemos es solo la parte visible de lo invisible.","What we see is only the visible part of the invisible."],
+ bio:["Ingeniero industrial y magíster en Gerencia de Proyectos Industriales, certificado PMP®, PMO Practitioner y PMI-ACP®. Lidero la entrega de valor en portafolios, programas y proyectos bajo marcos predictivos, híbridos y ágiles, en sectores como fintech, BPO, TI y social. Consultor y auditor de calidad bajo estándares ISO para empresas de diversos sectores, y docente catedrático de pregrado y posgrado, en modalidad virtual y presencial, en distintas instituciones educativas.",
+      "Industrial engineer with a master's in Industrial Project Management, certified PMP®, PMO Practitioner and PMI-ACP®. I lead value delivery across portfolios, programmes and projects under predictive, hybrid and agile frameworks, in fintech, BPO, IT and the social sector. Quality consultant and auditor under ISO standards for companies across industries, and adjunct lecturer at undergraduate and postgraduate level, online and on campus, at several institutions."],
+ tlhead:["Veinte años, <em>una línea</em>","Twenty years, <em>one line</em>"],
+ m_p:["proyectos","projects"], m_d:["cursos impartidos","courses taught"], m_q:["clientes atendidos","clients served"],
+ hoy:["Hoy","Today"], next:["Disponible para el siguiente proyecto.","Available for the next project."],
+ lugar:["Lugar","Place"], ben:["Beneficiarios","Beneficiaries"], usd:["Presupuesto","Budget"], usdp:["por confirmar, en dólares","to be confirmed, in USD"],
+ prog:["Programa","Programme"], antes:["Antes","Before"], desp:["Después","After"], hw:["Horas de trabajo","Hours of work"], horas:["Horas","Hours"], est:["Estudiantes","Learners"], pc:["por confirmar","to be confirmed"],
+ then:["Entonces","Then"], img:["Imagen","Image"], prev:["Anterior","Previous"], nxt:["Siguiente","Next"],
+ logros:["Logros","Achievements"], func:["Funciones","Responsibilities"], tl:["Línea de tiempo","Timeline"],
+ prof:["Gerente de proyectos y portafolios en los sectores financiero, BPO, construcción, social y TI, con más de catorce años de experiencia, PMP® y PMI-ACP®. Implementé y lideré una oficina de proyectos que gestionó más de 50 proyectos corporativos en cinco años; gerencié una consultora para diseñar e implementar sistemas de gestión de calidad bajo estándares ISO; administré fondos para proyectos sociales en Colombia, con más de 20 iniciativas en cuatro años; cofundé un centro de atención de usuarios, y lideré la entrega de valor de una plataforma de pagos altamente regulada en Europa con tres equipos Scrum. Consultor e implementador de sistemas de gestión, auditor certificado con más de diez años de experiencia y, en paralelo, siempre docente catedrático en distintas universidades e instituciones.",
+       "Project and portfolio manager in financial services, BPO, construction, the social sector and IT, with 14+ years of experience, PMP® and PMI-ACP®. I set up and led a project management office that ran 50+ corporate projects in five years; managed a consultancy that designed and implemented ISO quality management systems; administered funds for social projects in Colombia, with 20+ initiatives in four years; co-founded a customer contact centre; and led value delivery for a highly regulated payments platform in Europe with three Scrum teams. Management-systems consultant and implementer, certified auditor with 10+ years of experience, and throughout, an adjunct lecturer at several universities and institutions."]
+};
+function u(k){ return tr(U[k]); }
+
+var NAV=[["inicio",["Inicio","Home"]],["proyectos",["Proyectos","Projects"]],["docencia",["Docencia","Teaching"]],["implementador",["Implementador","Implementation"]],["cv",["CV","CV"]]];
+var KIND={p:{n:["Proyecto","Project"],v:"proyectos",c:"--kp"},d:{n:["Docencia","Teaching"],v:"docencia",c:"--kd"},q:{n:["Implementación","Implementation"],v:"implementador",c:"--kq"},h:{n:["Hito","Milestone"],c:"--kh"}};
+
+/* entities: name, site, initials for the logo slot */
+var E={
+ uniguajira:["Universidad de La Guajira","https://www.uniguajira.edu.co","UG"], urbe:["Universidad Rafael Belloso Chacín","https://www.urbe.edu","URBE"],
+ unad:["UNAD","https://www.unad.edu.co","UNAD"], sena:["SENA","https://www.sena.edu.co","SENA"], comfa:["Comfaguajira","https://www.comfaguajira.com","CG"],
+ fa:["Fondo Adaptación","https://www.fondoadaptacion.gov.co","FA"], mintic:["Ministerio TIC","https://www.mintic.gov.co","TIC"], oit:["OIT","https://www.ilo.org","OIT"],
+ minenergia:["Ministerio de Minas y Energía","https://www.minenergia.gov.co","MME"], epg:["EPG Financial Services","https://www.epg-financials.com","EPG"], merkur:["Merkur Group","https://www.merkur.com","MK"],
+ gecco:["GECCO S.A.S.",null,"GE"], callme:["Call Me Contact Center","https://www.callmebpo.com","CM"], ciat:["CIAT Riohacha S.A.S.",null,"CIAT"], coop:["Coopesagua",null,"CO"],
+ egb:["Enrique Griego Barros E.U.",null,"EG"], ifata:["IFATA · Tauramena",null,"IF"], frig:["Frigorinus",null,"FR"], nunchia:["Municipio de Nunchía",null,"NU"],
+ ecav:["ECAV",null,"EC"], gyd:["G&D Gerencia y Dirección de Proyectos",null,"G&D"], pmi:["Project Management Institute","https://www.pmi.org","PMI"], icontec:["ICONTEC","https://www.icontec.org","IC"],
+ inlac:["INLAC",null,"IN"], certiprof:["CertiProf","https://certiprof.com","CP"], welling:["Wellingtone","https://www.wellingtone.co.uk","WE"],
+ mich:["Michigan Language Assessment","https://michiganassessment.org","MI"], gob:["Gobernación de La Guajira","https://www.laguajira.gov.co","GG"], malta:["Malta",null,"MT"], edel:["Edel Brito",null,"EB"], femp:["Fondo Emprender","https://www.fondoemprender.com","FE"]
+};
+function ents(list){ return (list||[]).map(function(k){ var e=E[k]; return '<span class="e"><span class="lg" aria-hidden="true">'+e[2]+'</span>'+(e[1]?'<a href="'+e[1]+'" target="_blank" rel="noopener">'+e[0]+'</a>':e[0])+'</span>'; }).join(""); }
+
+/* ---------------- data ---------------- */
+var GUA="La Guajira, Colombia", RIO="Riohacha, La Guajira";
+var EEP=["Evaluación Económica de Proyectos","Economic Appraisal of Projects"];
+var D_EEP=["Flujo de caja, VPN, TIR, relación beneficio/costo y análisis de sensibilidad para decidir si un proyecto se justifica.","Cash flow, NPV, IRR, benefit/cost ratio and sensitivity analysis to decide whether a project is worth doing."];
+var D_LOG=["Proposiciones, conectivos, tablas de verdad, inferencia y teoría de conjuntos para estudiantes de primer año.","Propositions, connectives, truth tables, inference and set theory for first-year students."];
+var CONS=["Especialización en Gerencia de Construcción","Specialisation in Construction Management"], MGTI=["Maestría en Gestión de la Tecnología y la Innovación","Master's in Technology and Innovation Management"];
+var R={tutor:["Tutor virtual","Online tutor"],pos:["Docente catedrático de posgrado","Adjunct postgraduate lecturer"],cat:["Docente catedrático","Adjunct lecturer"],doc:["Docente","Lecturer"],cs:["Consultor senior","Senior consultant"],cl:["Consultor líder","Lead consultant"],c:["Consultor","Consultant"],gp:["Gerente del proyecto","Project manager"],cert:["Profesional certificado","Certified professional"]};
+var S_CERT=["Certificación","Certification"], S_TIT=["Título","Degree"], S_EMP=["Empresa","Company"], S_VOL=["Voluntariado","Volunteering"], S_HITO=["Hito","Milestone"];
+var PRE=["Pregrado","Undergraduate"];
+/* before and after: what every certification consultancy left in place */
+var AF=["Procesos documentados, repositorio de documentos, formatos y registros claros, tablero de gestión con indicadores por proceso, auditorías internas, acciones de mejora y auditores internos certificados. Certificación ICONTEC y mejor reputación en el mercado.",
+        "Documented processes, a document repository, clear forms and records, a management dashboard with KPIs per process, internal audits, improvement actions and certified internal auditors. ICONTEC certification and a stronger market reputation."];
+var BF=["Una empresa sin estándares en la gestión de sus procesos, que necesitaba la certificación por exigencia legal o del mercado.","A company with no standards for managing its processes, needing certification to meet legal or market requirements."];
+/* undergraduate courses, one per semester */
+var FEP=["Formulación y Evaluación de Proyectos","Project Design and Appraisal"], SEM=["Seminario de Investigación","Research Seminar"];
+var D_FEP=["Del problema al proyecto formulado: estudios de mercado, técnico, organizacional y financiero, con evaluación financiera, económica y social.","From problem to a fully designed project: market, technical, organisational and financial studies, with financial, economic and social appraisal."];
+var D_SEM=["Acompañamiento a los estudiantes en sus anteproyectos y trabajos de grado: problema, objetivos, marco teórico y metodología.","Guiding students through their research proposals and theses: problem, objectives, theoretical framework and method."];
+function ug(y,s,c){ return {k:"d",only:"sec",a:y+(s===1?.09:.6)+(c===SEM?.02:0),b:y+(s===1?.45:.92),w:y+" · "+(s===1?"I":"II"),t:c,e:["uniguajira"],prog:PRE,role:R.cat,st:30,ds:c===SEM?D_SEM:D_FEP}; }
+/* internal audits at Comfaguajira, two a year */
+var PROC=[["TI","IT"],["Educación","Education"],["Salud","Health"],["Vivienda","Housing"],["Mercadeo","Marketing"],["Compras y almacén","Procurement and warehouse"],["Talento humano","Human resources"]];
+var AUD=[]; (function(){ var s=11, o=[]; function r(){ s=(s*1103515245+12345)%2147483648; return s/2147483648; }
+  for(var y=2010;y<=2022;y++) for(var m=1;m<=2;m++){ if((y===2010&&m===1)||(y===2022&&m===2)) continue;
+    var p=PROC[Math.floor(r()*PROC.length)]; if(o.length&&o[o.length-1]===p) p=PROC[(PROC.indexOf(p)+3)%PROC.length]; o.push(p);
+    AUD.push({k:"q",aud:1,only:"sec",a:y+(m===1?.33:.78),b:y+(m===1?.37:.82),w:y+" · "+(m===1?"I":"II"),t:["Auditoría interna de calidad · "+p[0],"Internal quality audit · "+p[1]],e:["comfa"],cl:"comfa",pl:"Riohacha, La Guajira",role:["Auditor interno · líder de equipo auditor","Internal auditor · audit team lead"],h:24,w2:["3 días · 24 horas","3 days · 24 hours"],
+      ds:["Auditoría interna al proceso de "+p[0].toLowerCase()+" bajo ISO 9001: preparación, reunión de apertura, ejecución, informe y reunión de cierre.","Internal audit of the "+p[1].toLowerCase()+" process under ISO 9001: preparation, opening meeting, fieldwork, report and closing meeting."]}); } })();
+var IT=[
+ {k:"h",a:2006.53,w:"14 Jul 2006",s:S_TIT,t:["Ingeniero Industrial","BSc Industrial Engineering"],e:["uniguajira"],role:["Graduado","Graduate"],gate:1},
+ {k:"q",a:2006.6,b:2007.98,w:"Ago 2006 — Dic 2007",t:["Piloto del sistema de gestión de calidad de Bienestar Universitario","Pilot quality management system for University Student Welfare"],e:["uniguajira"],cl:"uniguajira",pl:RIO,role:["Consultor de calidad","Quality consultant"],h:1020,hm:[60,17],
+  ds:["Piloto ISO 9001 en la dependencia de Bienestar Universitario: procesos, manual de calidad, procedimientos e indicadores, con la capacitación del equipo que los iba a operar.","An ISO 9001 pilot in the Student Welfare office: processes, quality manual, procedures and indicators, plus training for the team that would run them."],
+  bf:["Los servicios de bienestar funcionaban sin procesos definidos ni indicadores, y la universidad aún no tenía un sistema de gestión de calidad.","Welfare services ran without defined processes or indicators, and the university had no quality management system yet."],
+  af:["Procesos documentados, formatos, registros e indicadores en operación: la primera piedra del sistema de gestión de calidad de la universidad.","Documented processes, forms, records and indicators in use: the first stone of the university's quality management system."]},
+ {k:"d",a:2008.17,b:2008.5,w:"Mar — Jun 2008",t:["Lógica Matemática","Mathematical Logic"],e:["unad"],role:R.tutor,st:150,ds:D_LOG},
+ {k:"h",a:2008.75,w:"30 Sep 2008",s:S_CERT,t:["Certificación: Tutor virtual de curso académico","Certification: Virtual academic course tutor"],e:["unad"],role:["Tutor certificado","Certified tutor"]},
+ {k:"d",a:2009.09,b:2009.41,w:"Feb — May 2009",t:["Cálculo I: derivadas","Calculus I: derivatives"],e:["unad"],role:R.tutor,st:80,ds:["Límites, continuidad y derivadas, con sus aplicaciones a razones de cambio y optimización.","Limits, continuity and derivatives, applied to rates of change and optimisation."]},
+ {k:"q",a:2009.29,b:2012.5,w:"14 Abr 2009 — 30 Jun 2012",t:["Diseño, implementación y certificación del sistema de gestión de calidad de Comfaguajira","Design, implementation and certification of Comfaguajira's quality management system"],e:["comfa"],cl:"comfa",pl:RIO,role:["Analista de calidad","Quality analyst"],cert:1,h:6160,hm:[160,38.5],
+  ds:["Procesos diseñados y documentados, puestos a funcionar y llevados a la certificación ISO 9001; tablero corporativo de indicadores y asesoría a los líderes de TI, educación, planeación y mercadeo.","Processes designed, documented, put to work and taken to ISO 9001 certification; a corporate KPI dashboard and support to the IT, education, planning and marketing leads."],
+  bf:["Una caja de compensación con muchos servicios y sin un estándar común para gestionar sus procesos, en un sector que exigía la certificación.","A family-welfare fund with many services and no common standard for managing its processes, in a sector that demanded certification."],af:AF},
+ {k:"d",a:2009.63,b:2009.96,w:"18 Ago — 17 Dic 2009",t:["Lógica Matemática","Mathematical Logic"],e:["unad"],role:R.tutor,st:50,ds:D_LOG},
+ {k:"d",a:2009.73,b:2009.97,w:"23 Sep — 22 Dic 2009",t:["Gestión Humana, Calidad y Proyectos","Human Resources, Quality and Projects"],e:["sena"],role:["Instructor · tutor virtual","Instructor · online tutor"],st:30,ds:["Formación virtual para el trabajo en gestión del talento humano, calidad y proyectos.","Online vocational training in people management, quality and projects."]},
+ {k:"h",a:2010.3,w:"2010",s:S_CERT,t:["Certificación: Auditor interno ISO 9001:2008","Certification: ISO 9001:2008 internal auditor"],e:["inlac"],role:["Auditor certificado","Certified auditor"]},
+ {k:"h",a:2010.4,b:2022.6,w:"2010 — 2022",s:S_HITO,t:["24 auditorías internas de calidad en Comfaguajira","24 internal quality audits at Comfaguajira"],e:["comfa"],role:["Auditor interno · líder de equipo auditor","Internal auditor · audit team lead"]},
+ {k:"p",a:2011.0,b:2013.0,w:"2011 — 2013",t:["Licitación del programa de reconstrucción de vivienda del Fondo Adaptación","Tender for the Fondo Adaptación housing reconstruction programme"],e:["comfa","fa"],pl:GUA,role:["Director de la etapa de licitación","Tender stage director"],usd:12987000,src:["COP 24.000 millones de 2011","COP 24 billion (2011)"],h:1440,hm:[60,24],ben:["Hogares damnificados por la ola invernal 2010–2011 · 12.000 viviendas en la propuesta","Households hit by the 2010–2011 floods · 12,000 homes in the proposal"],ds:["Propuesta con la que Comfaguajira fue elegida operador zonal del programa de reubicación y reconstrucción de viviendas, y su primer entregable: la caracterización de la población.","The bid that made Comfaguajira the zonal operator of the housing relocation and reconstruction programme, and its first deliverable: the population survey."]},
+ {k:"h",a:2011.35,w:"7 May 2011",s:S_TIT,t:["Magíster en Gerencia de Proyectos Industriales","Master's in Industrial Project Management"],e:["urbe"],role:["Graduado","Graduate"],gate:1},
+ {k:"d",a:2011.63,b:2011.94,w:"19 Ago — 8 Dic 2011",t:["Lógica Matemática","Mathematical Logic"],e:["unad"],role:R.tutor,st:50,ds:D_LOG},
+ {k:"h",a:2012.35,w:"2012",s:S_CERT,t:["Certificación: Auditor interno HSEQ (ISO 9001, 14001, OHSAS 18001)","Certification: HSEQ internal auditor (ISO 9001, 14001, OHSAS 18001)"],e:["icontec"],role:["Auditor certificado","Certified auditor"]},
+ {k:"p",a:2012.5,b:2017.25,w:"1 Jul 2012 — 31 Mar 2017",t:["Diseño e implementación de la oficina de proyectos de Comfaguajira","Design and implementation of Comfaguajira's project management office"],e:["comfa"],pl:RIO,role:["Gerente de la oficina de proyectos (PMO)","PMO manager"],usd:114000,src:["COP 50 millones al año durante 5 años","COP 50 million a year for 5 years"],h:3420,hm:[60,57],ben:["50+ proyectos corporativos gestionados en 5 años · 20+ gerentes formados","50+ corporate projects managed in 5 years · 20+ managers trained"],ds:["Creación de la PMO: modelo de gobierno, metodología basada en el PMI, compuertas de aprobación, pre-evaluación de inversiones e informes a la junta directiva y a la Superintendencia del Subsidio Familiar.","Setting up the PMO: governance model, PMI-based methodology, approval gates, investment pre-appraisal and reporting to the board and the family-subsidy regulator."]},
+ {k:"h",a:2012.55,w:"18 Jul 2012",s:S_EMP,t:["Funda GECCO S.A.S.","Founds GECCO S.A.S."],e:["gecco"],role:["Fundador y gerente","Founder and managing director"]},
+ {k:"q",a:2012.62,b:2013.2,w:"Ago 2012 — Feb 2013",t:["Implementación y certificación ISO 9001 de Edel Brito","ISO 9001 implementation and certification for Edel Brito"],e:["gecco","edel"],cl:"edel",pl:GUA,role:R.cl,cert:1,h:420,hm:[60,7],usd:13900,src:["COP 25 millones de 2012","COP 25 million (2012)"],ds:["La primera consultoría de GECCO S.A.S., justo después de crear la empresa: diagnóstico, procesos, documentación, indicadores y auditoría interna hasta la certificación.","GECCO S.A.S.'s first consultancy, right after the company was founded: assessment, processes, documentation, indicators and internal audit through to certification."],bf:BF,af:AF},
+ {k:"q",a:2013.12,b:2013.92,w:"13 Feb — 30 Nov 2013",t:["Implementación y certificación ISO 9001 de CIAT Riohacha","ISO 9001 implementation and certification for CIAT Riohacha"],e:["gecco","ciat"],cl:"ciat",pl:RIO,role:R.cl,cert:1,h:570,hm:[60,9.5],ds:["Del diagnóstico a la certificación: política y objetivos de calidad, mapa de procesos, procedimientos, indicadores y auditorías internas.","From assessment to certification: quality policy and objectives, process map, procedures, indicators and internal audits."],bf:BF,af:AF},
+ {k:"q",a:2013.5,b:2013.9,w:"2013",t:["Implementación y certificación ISO 9001 de Coopesagua","ISO 9001 implementation and certification for Coopesagua"],e:["gecco","coop"],cl:"coop",pl:GUA,role:R.cl,cert:1,h:300,hm:[60,5],ds:["Diagnóstico de requisitos, política, mapa de procesos, manual de calidad, procedimientos e indicadores, con capacitación en la norma y en auditoría.","Requirements assessment, policy, process map, quality manual, procedures and indicators, with training in the standard and in auditing."],
+  bf:["Una cooperativa sin procesos documentados ni indicadores, que necesitaba la certificación para competir y responder a sus clientes.","A cooperative with no documented processes or indicators, which needed certification to compete and meet its clients' demands."],af:AF},
+ {k:"q",a:2014.76,b:2015.92,w:"6 Oct 2014 — 30 Nov 2015",t:["Mantenimiento del sistema ISO 9001 de CIAT Riohacha","Maintaining CIAT Riohacha's ISO 9001 system"],e:["gecco","ciat"],cl:"ciat",pl:RIO,role:R.cl,h:830,hm:[60,13.8],ds:["Asesoría para sostener el sistema certificado en 2013: seguimiento, acciones de mejora y preparación de auditorías.","Support to keep the system certified in 2013 running: follow-up, improvement actions and audit preparation."],
+  bf:["Un sistema recién certificado que había que sostener sin perder el ritmo de la operación.","A newly certified system that had to be kept alive without slowing operations."],af:["Indicadores, auditorías internas y acciones de mejora al día; sistema listo para las auditorías de seguimiento del ICONTEC.","KPIs, internal audits and improvement actions up to date; the system ready for ICONTEC's surveillance audits."]},
+ {k:"d",only:"home",a:2015.1,b:2023.6,w:"Feb 2015 — Ago 2023",t:["Formulación y evaluación de proyectos y seminario de investigación","Project design and appraisal, and research seminar"],e:["uniguajira"],role:R.cat},
+ ug(2015,1,FEP),ug(2015,1,SEM),ug(2015,2,FEP),ug(2015,2,SEM),ug(2016,1,FEP),ug(2016,1,SEM),ug(2016,2,FEP),ug(2016,2,SEM),ug(2017,1,FEP),ug(2017,1,SEM),ug(2017,2,FEP),ug(2018,2,FEP),ug(2019,1,FEP),ug(2019,2,FEP),ug(2020,1,FEP),ug(2021,1,FEP),ug(2022,1,FEP),
+ {k:"p",a:2015.83,b:2016.18,w:"1 Nov 2015 — 7 Mar 2016",t:["La Guajira Vive Digital","La Guajira Vive Digital"],e:["mintic","comfa"],pl:GUA,role:R.gp,bn:2940,usd:547000,src:["COP 1.500 millones de 2015","COP 1.5 billion (2015)"],h:252,hm:[60,4.2],ben:["7 instituciones educativas dotadas · 140 docentes y 2.800 estudiantes formados en programación y robótica","7 schools equipped · 140 teachers and 2,800 students trained in coding and robotics"],ds:["Convenio con el Ministerio TIC: dotación de tecnología educativa, formación de docentes y estudiantes, diagnóstico de apropiación TIC y un software de gestión educativa para colegios públicos.","Agreement with the ICT Ministry: educational technology, teacher and student training, an ICT-adoption assessment and school-management software for public schools."]},
+ {k:"h",a:2016.05,w:"19 Ene 2016",s:S_CERT,t:["Certificación PMP®","PMP® certification"],e:["pmi"],role:R.cert,gate:1,pm:1},
+ {k:"h",a:2016.1,w:"2016",s:S_VOL,t:["Voluntario en la creación del capítulo PMI Caribe","Volunteer in founding the PMI Caribbean chapter"],e:["pmi"],role:["Voluntario","Volunteer"]},
+ {k:"p",a:2017.29,b:2022.62,w:"Abr 2017 — 16 Ago 2022",t:["Gerencia del portafolio FONIÑEZ y programas sociales","Managing the FONIÑEZ portfolio and social programmes"],e:["comfa"],pl:GUA,role:["Gerente de portafolio","Portfolio manager"],bn:35000,usd:13555000,src:["COP 40.000 millones en 4 años, desde 2017","COP 40 billion over 4 years, from 2017"],h:3870,hm:[60,64.5],ben:["35.000+ beneficiarios · niñez, jornada escolar complementaria, adulto mayor y discapacidad","35,000+ beneficiaries · children, after-school programmes, older adults and disability"],ds:["Administración del fondo y de su portafolio de proyectos con recursos públicos (grants): presupuesto, contratos, control de cambios e informes a financiadores y entes de control.","Running the fund and its portfolio of publicly funded projects (grants): budget, contracts, change control and reporting to funders and oversight bodies."]},
+ {k:"q",a:2017.5,b:2018.15,w:"Jul 2017 — Feb 2018",t:["Diseño del sistema de gestión de calidad de Frigorinus","Quality management system design for Frigorinus"],e:["gecco","frig"],cl:"frig",pl:"San José del Nus, Antioquia",role:R.c,h:480,hm:[60,8],ds:["Diseño del sistema de gestión de calidad de la planta de beneficio, con la evaluación financiera del negocio de beneficio bovino y porcino.","Quality management system design for the meat-processing plant, with a financial appraisal of the cattle and pig processing business."],
+  bf:["Una planta de beneficio sin sistema de gestión ni una lectura financiera clara de su negocio.","A meat-processing plant with no management system and no clear financial picture of its business."],af:["Sistema de gestión de calidad diseñado —procesos, documentos e indicadores— y un modelo financiero del negocio para decidir con cifras.","A quality management system designed —processes, documents and KPIs— and a financial model of the business to decide with numbers."]},
+ {k:"q",a:2018.02,b:2018.2,w:"Ene 2018",t:["Implementación y certificación ISO 9001:2015 de Enrique Griego Barros E.U.","ISO 9001:2015 implementation and certification for Enrique Griego Barros E.U."],e:["gecco","egb"],cl:"egb",pl:GUA,role:R.c,cert:1,h:120,hm:[60,2],ds:["Diagnóstico y revisión documental; ajustes a misión, visión, política y objetivos; mapa y caracterización de procesos; procedimientos y manual de calidad.","Assessment and document review; updated mission, vision, policy and objectives; process map and process sheets; procedures and quality manual."],bf:BF,af:AF},
+ {k:"h",a:2018.58,w:"2 Ago 2018",s:S_EMP,t:["Cofunda Call Me Contact Center","Co-founds Call Me Contact Center"],e:["callme"],role:["Socio fundador","Co-founder"]},
+ {k:"p",a:2018.15,b:2019.97,w:"2018 — 2019",t:["Plan de negocio e implementación de Call Me BPO · Fondo Emprender","Call Me BPO business plan and launch · Fondo Emprender"],e:["callme","femp","sena"],pl:RIO,role:["Cofundador","Co-founder"],usd:44000,src:["COP 130 millones de 2018","COP 130 million (2018)"],h:1320,hm:[60,22],ben:["Una empresa nueva con más de 20 empleos y más de 10 líneas de servicio digital","A new company with 20+ jobs and 10+ digital service lines"],ds:["Plan de negocio ganador de Fondo Emprender (SENA) en 2018; implementación durante todo 2019 y operación desde 2020.","Business plan that won Fondo Emprender (SENA) funding in 2018; launched throughout 2019 and operating since 2020."]},
+ {k:"d",a:2018.6,b:2018.66,w:"Ago 2018",t:["Diplomado en Planificación y Gestión de Proyectos (PMBOK® 6)","Diploma in Project Planning and Management (PMBOK® 6)"],e:["gyd"],role:R.cat,h:12,st:30,ds:["Planificación, cronograma, costos y riesgos según la sexta edición de la Guía del PMBOK®.","Planning, schedule, cost and risk under the sixth edition of the PMBOK® Guide."]},
+ {k:"d",a:2018.72,b:2018.95,w:"2018 · II",t:EEP,e:["uniguajira"],prog:CONS,role:R.pos,h:16,st:30,ds:D_EEP},
+ {k:"q",a:2019.2,b:2019.78,w:"15 Mar — 14 Oct 2019",t:["Implementación del sistema de calidad de la planta de beneficio animal de Tauramena","Quality system implementation at the Tauramena meat-processing plant"],e:["gecco","ifata"],cl:"ifata",pl:"Tauramena, Casanare",role:R.c,h:420,hm:[60,7],ds:["Procesos de inocuidad y gestión documentados: mapas de procesos, manual de calidad, indicadores, gestión de peticiones y quejas, y control de documentos.","Food-safety and management processes documented: process maps, quality manual, indicators, complaints handling and document control."],
+  bf:["Una planta con exigencias sanitarias y de inocuidad y sin procesos documentados para cumplirlas.","A plant facing food-safety requirements without documented processes to meet them."],af:["Procesos de inocuidad y de gestión documentados, indicadores, atención de peticiones y quejas y control de documentos en operación.","Food-safety and management processes documented; KPIs, complaints handling and document control in operation."]},
+ {k:"d",a:2019.22,b:2019.45,w:"2019 · I",t:EEP,e:["uniguajira"],prog:MGTI,role:R.pos,h:32,st:30,ds:D_EEP},
+ {k:"p",a:2019.5,b:2019.9,w:"Jul — Nov 2019",t:["Ejecución de la Formación Continua Especializada ECAV–SENA en La Guajira","Delivering the ECAV–SENA specialised continuing-education programme in La Guajira"],e:["ecav","sena"],pl:"Riohacha y Uribia, La Guajira",role:["Gerente Región La Guajira","Regional manager, La Guajira"],bn:400,usd:122000,src:["COP 400 millones de 2019","COP 400 million (2019)"],h:300,hm:[60,5],ben:["400 estudiantes formados, trabajadores de empresas aportantes al SENA","400 learners trained, employees of SENA-contributing companies"],ds:["Diplomados del convenio 0032 de 2019 en proyectos, Scrum e innovación: programación, docentes, participantes e informes.","Diploma courses under agreement 0032 of 2019 in projects, Scrum and innovation: scheduling, lecturers, participants and reporting."]},
+ {k:"d",a:2019.69,b:2019.8,w:"2019 · II",t:EEP,e:["uniguajira"],prog:CONS,role:R.pos,h:12,st:30,ds:D_EEP},
+ {k:"d",a:2019.85,b:2019.99,w:"Nov 2019",t:["Formulación y Evaluación de Proyectos · Gestión Financiera de Proyectos","Project Design and Appraisal · Project Financial Management"],e:["uniguajira"],prog:MGTI,role:R.pos,h:80,st:30,ds:["Dos módulos seguidos: cómo se formula y evalúa un proyecto de tecnología, y cómo se financia y se controla su dinero.","Two back-to-back modules: how a technology project is designed and appraised, and how it is funded and its money controlled."]},
+ {k:"h",a:2020.08,b:2020.62,w:"Feb — Ago 2020",s:S_VOL,t:["Vicepresidente de educación del capítulo PMI Caribe","Vice-president of education, PMI Caribbean chapter"],e:["pmi"],role:["Vicepresidente de educación","Vice-president of education"],pm:1},
+ {k:"q",a:2020.33,b:2020.9,w:"May — Nov 2020",t:["Campaña multicanal de atención a afectados por COVID-19 en La Guajira","Multichannel COVID-19 response campaign in La Guajira"],e:["callme","gob"],cl:"gob",pl:GUA,role:R.cs,h:420,hm:[60,7],ds:["Atención a la ciudadanía para dirigirla a los centros de atención, resolver dudas, reportar casos y validar con encuestas la atención de los prestadores, con IVR, bots, llamadas y chats. Cliente: Gobernación de La Guajira.","Citizen service to route people to care centres, answer questions, report cases and survey the quality of providers' care, using IVR, bots, calls and chat. Client: Government of La Guajira."],
+  bf:["En plena pandemia, la Gobernación no tenía un canal masivo para orientar a la ciudadanía ni para hacer seguimiento a los prestadores.","In the middle of the pandemic, the regional government had no large-scale channel to guide citizens or follow up on care providers."],af:["Un canal multicanal en operación: ciudadanos orientados a los centros de atención, casos reportados y prestadores evaluados con encuestas.","A multichannel service in operation: citizens routed to care centres, cases reported and providers assessed through surveys."]},
+ {k:"d",a:2020.6,b:2020.8,w:"2020 · II",t:EEP,e:["uniguajira"],prog:CONS,role:R.pos,h:12,st:30,ds:D_EEP},
+ {k:"d",a:2020.67,b:2020.97,w:"Sep — Dic 2020",t:["Diplomados de Formación Continua Especializada","Specialised continuing-education diploma courses"],e:["gyd"],role:R.cat,st:30,ds:["Diplomados en gestión de proyectos para trabajadores de empresas, dentro del programa de Formación Continua Especializada.","Project management diploma courses for company employees, within the specialised continuing-education programme."]},
+ {k:"q",a:2021.0,b:2021.97,w:"Ene — Dic 2021",t:["Campaña multicanal de atención de citas de salud de la IPS Comfaguajira","Multichannel health-appointment campaign for IPS Comfaguajira"],e:["callme","comfa"],cl:"comfa",pl:GUA,role:R.cs,h:720,hm:[60,12],ds:["Atención telefónica a los usuarios de la IPS para agendar y gestionar citas de todos los servicios de salud, con IVR, bots, llamadas y chats. Cliente: IPS Comfaguajira.","Phone service for the clinic's patients to book and manage appointments across all health services, using IVR, bots, calls and chat. Client: IPS Comfaguajira."],
+  bf:["La IPS necesitaba un canal centralizado para que sus usuarios agendaran y gestionaran citas de todos los servicios.","The clinic needed a single channel for patients to book and manage appointments across all its services."],af:["Una línea multicanal para citas de todos los servicios de salud, con IVR, bots, llamadas y chats.","A multichannel line for appointments across all health services, with IVR, bots, calls and chat."]},
+ {k:"p",a:2021.67,b:2022.62,w:"Sep 2021 — Ago 2022",t:["Reconversión laboral de vendedores informales de combustible · OIT","Livelihood transition for informal fuel sellers · ILO"],e:["oit","minenergia","comfa"],pl:"Maicao y Uribia, La Guajira",role:["Director del proyecto en La Guajira","Project director, La Guajira"],bn:60,usd:321000,src:["COP 1.200 millones de 2021","COP 1.2 billion (2021)"],h:720,hm:[60,12],ben:["60 familias de vendedores informales de combustible","60 families of informal fuel sellers"],ds:["Operación en La Guajira del proyecto de la OIT y el Ministerio de Minas y Energía para que los vendedores informales de combustible pasen a nuevos medios de vida.","Running in La Guajira the ILO and Ministry of Mines and Energy project that moves informal fuel sellers into new livelihoods."]},
+ {k:"d",a:2021.7,b:2021.9,w:"2021 · II",t:EEP,e:["uniguajira"],prog:CONS,role:R.pos,h:12,st:30,ds:D_EEP},
+ {k:"h",a:2022.25,w:"3 Abr 2022",s:S_CERT,t:["Certificación Scrum Master Professional (SMPC®)","Scrum Master Professional certification (SMPC®)"],e:["certiprof"],role:R.cert,pm:1},
+ {k:"h",a:2022.66,b:2023.55,w:"Ago 2022 — Jul 2023",s:S_HITO,t:["Inmersión en inglés en Malta","English immersion in Malta"],e:["malta"],role:["Estudiante de inglés","English student"],gate:1},
+ {k:"d",a:2022.75,b:2022.95,w:"2022 · II",t:EEP,e:["uniguajira"],prog:CONS,role:R.pos,h:12,st:30,ds:D_EEP},
+ {k:"h",a:2023.26,w:"6 Abr 2023",s:S_CERT,t:["Certificación PMO Practitioner","PMO Practitioner certification"],e:["welling"],role:R.cert,pm:1},
+ {k:"p",a:2023.57,b:2026.75,w:"27 Jul 2023 — 30 Sep 2026",t:["Líder de entrega de valor de Paylado","Value delivery lead for Paylado"],e:["epg","merkur"],pl:"Sliema, Malta",role:["Senior Project Manager","Senior Project Manager"],usd:16470000,src:["€5 millones al año durante 3 años","€5 million a year for 3 years"],h:2280,hm:[60,38],ben:["Usuarios y comercios de la billetera paylado","paylado wallet users and merchants"],ds:["Entrega de valor en tres aplicaciones —app móvil, back office y portal de comercios— con tres equipos Scrum (~30 personas), bancos y proveedores de pago: más de 20 integraciones e iniciativas regulatorias.","Value delivery across three applications —mobile app, back office and merchant portal— with three Scrum teams (~30 people), banks and payment providers: 20+ integrations and regulatory initiatives."]},
+ {k:"p",a:2024.45,b:2024.95,w:"2024",t:["Integración con SWIFT y el Banco Central de Malta","Integration with SWIFT and the Central Bank of Malta"],e:["epg","merkur"],pl:"Malta",role:R.gp,usd:162300,src:["€150.000","€150,000"],h:360,hm:[60,6],ben:["Usuarios de transferencias y la operación regulada de la plataforma","Transfer users and the platform's regulated operation"],ds:["Conexión de la plataforma a la red SWIFT y al Banco Central de Malta para transferencias internacionales y la operación regulada de la entidad de dinero electrónico.","Connecting the platform to the SWIFT network and the Central Bank of Malta for international transfers and the e-money institution's regulated operation."]},
+ {k:"p",a:2025.3,b:2025.5,w:"Jun 2025",t:["Integración de pagos en tiempo real con Volt","Real-time payments integration with Volt"],e:["epg","merkur"],pl:"Malta",role:["Delivery Lead","Delivery Lead"],usd:135600,src:["€120.000","€120,000"],h:180,hm:[60,3],ben:["Usuarios de la billetera","Wallet users"],ds:["Recargas y retiros por open banking, de la cuenta bancaria a la billetera y de vuelta.","Open-banking top-ups and withdrawals, from bank account to wallet and back."]},
+ {k:"p",a:2025.9,b:2026.7,w:"2026",t:["Automatización de flujos de gestión con IA","AI automation of project management workflows"],e:["epg","merkur"],pl:"Malta",role:R.gp,usd:46240,src:["€40.000","€40,000"],h:600,hm:[60,10],ben:["Equipos de producto, ingeniería, QA y cumplimiento","Product, engineering, QA and compliance teams"],ds:["Rediseño del gobierno de proyectos y su automatización con Atlassian Rovo y Claude: alertas, indicadores, bitácoras y matriz de riesgos conectados a Jira y Slack.","Redesigned project governance and automated it with Atlassian Rovo and Claude: alerts, KPIs, logs and a risk matrix wired into Jira and Slack."]},
+ {k:"d",a:2026.08,b:2026.85,w:"Feb — 5 Nov 2026",t:["English Does Work","English Does Work"],e:["sena"],role:["Instructor virtual de inglés","Online English instructor"],n:32,st:2560,ds:["Inglés para el trabajo en modalidad virtual, según el Marco Común Europeo; SENA asigna un nivel distinto cada mes. Cuatro fichas de 80 aprendices cada cinco semanas: 32 fichas hasta el cierre del 5 de noviembre.","Online English for work, aligned with the Common European Framework; SENA assigns a different level each month. Four groups of 80 learners every five weeks: 32 groups up to the close on 5 November."]},
+ {k:"p",a:2026.42,b:2026.9,w:"2026",t:["Estudio de factibilidad del Frigorífico Regional de Casanare","Feasibility study for the Casanare Regional Meat-Processing Plant"],e:["nunchia"],pl:"La Yopalosa, Nunchía, Casanare",role:R.cs,usd:8800,src:["Contrato de COP 30 millones de 2026","COP 30 million contract (2026)"],h:360,hm:[60,6],ben:["Municipio de Nunchía y la cadena ganadera de Casanare","Nunchía municipality and Casanare's cattle value chain"],ds:["Apoyo al estudio de factibilidad de la planta regional de beneficio animal en el componente del sistema de gestión de calidad.","Support to the feasibility study for the regional meat-processing plant, on the quality management system component."]},
+ {k:"h",a:2025.49,w:"26 Jun 2025",s:S_CERT,t:["Certificación de inglés Michigan (MET) · B2","Michigan English certification (MET) · B2"],e:["mich"],role:["Certificado B2","B2 certified"]},
+ {k:"h",a:2026.86,w:"10 Nov 2026",s:S_CERT,t:["Certificación PMI-ACP®","PMI-ACP® certification"],e:["pmi"],role:R.cert,pm:1}
+].concat(AUD);
+IT.sort(function(x,y){ return x.a-y.a; });
+IT.forEach(function(x,i){ x.id="i"+i; if(x.b==null) x.b=x.a; });
+var Y0=2006.3, Y1=2026.95, NOW=2026.88;
+function T(yr){ return Math.min(1,Math.max(0,(yr-Y0)/(Y1-Y0))); }
+var GATES=IT.filter(function(x){ return x.gate; }).map(function(x){ return x.a; });
+
+var SECS={
+ proyectos:{n:["Proyectos","Projects"],lead:["Lo que se dirigió, se financió y se entregó.","What was led, funded and delivered."],f:function(x){return x.k==="p";},slots:2,
+  prof:["Mi camino en proyectos empezó en el gobierno de proyectos y portafolios: diseñé e implementé la oficina de proyectos de Comfaguajira y, con la certificación PMP® en 2016, asumí mi primera gerencia, La Guajira Vive Digital. Después gerencié el portafolio de programas sociales (grants), con más de 20 proyectos ejecutados en cuatro años, y entre febrero y agosto de 2020 fui vicepresidente de educación del capítulo PMI Caribe. La certificación Scrum Master marcó el paso a lo ágil: en EPG–Merkur lideré la entrega de valor de tres aplicaciones —app móvil, back office y portal de comercios— y hoy sumo la certificación PMI-ACP®.",
+        "My path in projects began in project and portfolio governance: I designed and implemented Comfaguajira's project management office and, after earning the PMP® in 2016, took on my first project as manager, La Guajira Vive Digital. I then managed the social programmes portfolio (grants), with 20+ projects delivered in four years, and from February to August 2020 served as vice-president of education of the PMI Caribbean chapter. The Scrum Master certification marked the move to agile: at EPG–Merkur I led value delivery across three applications —mobile app, back office and merchant portal— and I now add the PMI-ACP® certification."]},
+ docencia:{n:["Docencia","Teaching"],lead:["Cada curso, desde el primero en 2008.","Every course, since the first in 2008."],f:function(x){return x.k==="d";},slots:1,pack:1,
+  prof:["Empecé como tutor virtual en la UNAD con Lógica Matemática; luego llegaron más cursos virtuales y la certificación como tutor virtual, donde la pedagogía le sumó método a la experiencia. En la Universidad de La Guajira fui docente catedrático de Formulación y Evaluación de Proyectos y de Seminario de Investigación, director de trabajos de grado y conferencista en seminarios. Fui voluntario en la creación del capítulo PMI Caribe, docente de posgrado en distintas universidades, y hoy soy instructor virtual de inglés en el SENA.",
+        "I started as an online tutor at UNAD teaching Mathematical Logic; more online courses followed, and then the virtual-tutor certification, where pedagogy gave method to experience. At the Universidad de La Guajira I was an adjunct lecturer in Project Design and Appraisal and in Research Seminar, a thesis supervisor and a seminar speaker. I volunteered in founding the PMI Caribbean chapter, taught postgraduate modules at several universities, and today I am an online English instructor at SENA."]},
+ implementador:{n:["Implementador y auditor","Implementation and audit"],lead:["Sistemas de gestión puestos a funcionar, y auditados.","Management systems put to work, and audited."],f:function(x){return x.k==="q";},slots:1,
+  lanes:[{n:["Sistemas de gestión","Management systems"],c:"ln-sys",f:function(x){ return !x.aud&&x.e.indexOf("callme")<0; }},{n:["Campañas BPO","BPO campaigns"],c:"ln-bpo",f:function(x){ return x.e.indexOf("callme")>=0; }},{n:["Auditorías internas · hitos","Internal audits · milestones"],c:"ln-aud",mk:1,f:function(x){ return x.aud; }}],
+  prof:["Todo empezó en la Universidad de La Guajira, con el piloto del sistema de gestión de calidad de Bienestar Universitario bajo ISO 9001: la primera piedra del sistema de la universidad. Luego creé GECCO S.A.S. y llegaron las consultorías de Edel Brito —la primera, en 2012—, CIAT Riohacha, Coopesagua y Enrique Griego Barros, todas de implementación y certificación ISO 9001. Después vinieron el diseño del sistema de gestión de calidad de Frigorinus y las evaluaciones financieras de plantas de procesamiento de carne, que completaron una experiencia amplia en distintos tipos de consultoría. En paralelo, más de diez años como auditor interno certificado.",
+        "It all began at the Universidad de La Guajira, with the pilot ISO 9001 quality system for the Student Welfare office: the first stone of the university's system. I then founded GECCO S.A.S. and the consultancies followed —Edel Brito, the first, in 2012, CIAT Riohacha, Coopesagua and Enrique Griego Barros— all ISO 9001 implementation and certification. Then came the quality system design for Frigorinus and the financial appraisals of meat-processing plants, rounding out broad experience across different kinds of consultancy. Alongside, more than ten years as a certified internal auditor."]}
+};
+function lists(v){ return IT.filter(function(x){ return x.only!=="home"&&SECS[v].f(x); }); }
+function usd(n){ return n>=1e6?"USD "+(n/1e6).toLocaleString(LANG==="en"?"en-GB":"es-CO",{maximumFractionDigits:1})+" M":"USD "+fmt(Math.round(n/1000)*1000); }
+function kpis(v){
+  var L=lists(v), out=[];
+  if(v==="proyectos"){
+    var bn=0,us=0; L.forEach(function(x){ bn+=x.bn||0; us+=x.usd||0; });
+    out=[[fmt(bn)+"+",["beneficiarios con cifra documentada","beneficiaries with documented figures"]],[usd(us).replace(/ M$/," M+"),["en presupuestos de proyectos, en dólares","in project budgets, in US dollars"]],[fmt(L.reduce(function(a,x){ return a+(x.h||0); },0))+"+",["horas de trabajo, mi parte","hours of work, my share"]]];
+  } else if(v==="docencia"){
+    var st=0,h=0,en={}; L.forEach(function(x){ st+=x.st||0; h+=x.h||0; x.e.forEach(function(k){ en[k]=1; }); });
+    out=[[fmt(st)+"+",["estudiantes formados","learners trained"]],[Object.keys(en).length,["entidades","institutions"]],[h+"+",["horas de formación certificadas","certified teaching hours"]]];
+  } else {
+    var cl={},ce=0; L.forEach(function(x){ if(x.cl) cl[x.cl]=1; ce+=x.cert||0; });
+    var hh=0; L.forEach(function(x){ hh+=x.h||0; });
+    out=[[Object.keys(cl).length,["clientes","clients"]],[fmt(hh)+"+",["horas de trabajo","hours of work"]],[ce,["certificaciones ISO obtenidas","ISO certifications achieved"]]];
+  }
+  return out.map(function(k){ return '<div><b'+(k[0]==null?' class="pend">'+u("pc"):'>'+k[0])+'</b><span>'+tr(k[1])+'</span></div>'; }).join("");
+}
+
+/* ---------------- views and the curtain ---------------- */
+var cur="inicio", busy=false;
+function show(v){
+  cur=v; document.body.dataset.view=v;
+  if(v!=="inicio"){ ["--bg","--fg"].forEach(function(p){ document.body.style.removeProperty(p); }); document.body.classList.remove("lite"); $("hud").classList.remove("on"); }
+  document.querySelectorAll(".view").forEach(function(s){ s.classList.toggle("on",s.id===v); });
+  document.querySelectorAll("#navlinks a").forEach(function(a){ a.classList.toggle("on",a.dataset.s===v); });
+  window.scrollTo(0,0);
+  try{ if(location.hash!=="#"+v) history.replaceState(null,"","#"+v); }catch(e){}
+  if(v==="inicio"){ measure(); startLoop(); }
+  if(SECS[v]) buildSection(v);
+}
+function go(v,id){
+  if(!document.getElementById(v)) return;
+  function after(){ if(id&&SECS[v]) selectById(v,id); }
+  if(v===cur){ after(); return; }
+  if(RM){ show(v); after(); return; }
+  if(busy) return; busy=true;
+  var w=$("wipe"), nm=NAV.filter(function(n){return n[0]===v;})[0];
+  $("wipeT").textContent=nm?tr(nm[1]):"";
+  w.className="wipe in";
+  setTimeout(function(){ show(v); after(); w.className="wipe out"; setTimeout(function(){ w.className="wipe"; busy=false; },520); },440);
+}
+document.addEventListener("click",function(e){
+  var a=e.target.closest("[data-go]"); if(a){ e.preventDefault(); go(a.getAttribute("data-go"),a.getAttribute("data-id")); return; }
+  var l=e.target.closest(".lang button"); if(l) setLang(l.dataset.l);
+});
+window.addEventListener("hashchange",function(){ var h=location.hash.slice(1); if(h&&h!==cur&&document.getElementById(h)&&!busy) show(h); });
+
+/* ---------------- colour: a scale from 160 to 300 ---------------- */
+function hex(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
+function S(list){ return list.map(function(s){ return [s[0],hex(s[1])]; }); }
+function ramp(stops,u){ if(u<=stops[0][0]) return stops[0][1]; for(var i=1;i<stops.length;i++){ if(u<=stops[i][0]){ var a=stops[i-1],b=stops[i],f=(u-a[0])/(b[0]-a[0]); return [a[1][0]+(b[1][0]-a[1][0])*f,a[1][1]+(b[1][1]-a[1][1])*f,a[1][2]+(b[1][2]-a[1][2])*f]; } } return stops[stops.length-1][1]; }
+function rgb(c,a){ return "rgba("+(c[0]|0)+","+(c[1]|0)+","+(c[2]|0)+","+(a==null?1:a)+")"; }
+function lin(stops,x){ if(x<=stops[0][0]) return stops[0][1]; for(var i=1;i<stops.length;i++) if(x<=stops[i][0]){ var a=stops[i-1],b=stops[i]; return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]); } return stops[stops.length-1][1]; }
+/* calibrated level by year: each step opens at a milestone */
+var LV=[[2006.3,160],[2011.35,182],[2016.05,205],[2022.62,250],[2026.95,300]];
+function lvl(yr){ return lin(LV,yr); }
+/* ground: deep blue that clears into paper at the last milestone */
+var BG=S([[2006.3,"#15235c"],[2011.35,"#192c74"],[2016.05,"#1d388a"],[2021.6,"#22439f"],[2022.28,"#294cad"],[2022.6,"#e1e7f7"],[2024.6,"#edf0f7"],[2026.95,"#f7f5ef"]]);
+var FG_D=[243,239,228], FG_L=[15,26,58];
+var LN_D=S([[160,"#ff8a4c"],[182,"#ffab45"],[205,"#f6cf4a"],[228,"#a6dd5f"],[250,"#52d6a0"],[275,"#3cc9c0"],[300,"#5cc6ea"]]);
+var LN_L=S([[160,"#c2531c"],[182,"#b8740e"],[205,"#987f00"],[228,"#4f8f1f"],[250,"#13906f"],[275,"#0f8592"],[300,"#0b6f92"]]);
+var KC_D={p:"#8ea6ff",d:"#3fd6c4",q:"#f58fcb",h:"#f6cf4a"}, KC_L={p:"#2a48d8",d:"#0b8577",q:"#a8327f",h:"#9a6400"};
+function lum(c){ var a=c.map(function(v){ v/=255; return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4); }); return .2126*a[0]+.7152*a[1]+.0722*a[2]; }
+var LUM_D=lum(FG_D), LUM_L=lum(FG_L);
+function wantsDark(bg){ var L=lum(bg); return (LUM_D+.05)/(L+.05) < (L+.05)/(LUM_L+.05); }
+var lite=false;
+function lnc(L){ return ramp(lite?LN_L:LN_D,L); }
+function kc(k){ return (lite?KC_L:KC_D)[k]; }
+
+/* ---------------- hero: name and its frequency ---------------- */
+var heroEl=$("hero"), hcv=$("heroCv"), hctx=hcv.getContext("2d"), chars=[], prox=false;
+function buildName(){
+  var n=0, h=["Mauricio","Celedón","Baza"].map(function(w){ return '<span class="w">'+w.split("").map(function(c){ return '<span class="ch" style="--n:'+(n++)+'">'+c+'</span>'; }).join("")+'</span>'; }).join("");
+  $("name").innerHTML=h; chars=[].slice.call(document.querySelectorAll("#name .ch"));
+  setTimeout(function(){ prox=true; },1700+n*55);
+}
+heroEl.addEventListener("pointermove",function(e){
+  if(!prox||RM||e.pointerType==="touch") return;
+  chars.forEach(function(c){ var r=c.getBoundingClientRect(), dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2), d=Math.sqrt(dx*dx+dy*dy);
+    c.style.setProperty("--wg",Math.round(480+360*Math.exp(-(d*d)/(170*170)))); });
+});
+heroEl.addEventListener("pointerleave",function(){ chars.forEach(function(c){ c.style.removeProperty("--wg"); }); });
+function sizeHero(){ var d=Math.min(window.devicePixelRatio||1,1.75), r=hcv.getBoundingClientRect(); hcv.width=Math.round(r.width*d); hcv.height=Math.round(r.height*d); hctx.setTransform(d,0,0,d,0,0); hcv._w=r.width; hcv._h=r.height; }
+function drawHero(now,s){
+  var w=hcv._w||0, h=hcv._h||0; if(!w) return; hctx.clearRect(0,0,w,h);
+  if(s>h+100) return;
+  var nm=$("name"), cy=nm.offsetTop+nm.offsetHeight*.56, tt=RM?0:now*.001;
+  for(var k=-1;k<=1;k++){
+    var px=null,py=null;
+    for(var x=0;x<=w;x+=4){
+      var uu=x/w, L=160+140*uu, A=(w<700?16:34)*(1-.5*uu), lam=(w<700?150:300)-(w<700?95:190)*uu;
+      var ph=x*2*Math.PI/lam*(1+.15*k)-tt*(1+uu)*1.1, spread=(3+14*(1-uu))*k;
+      var y=cy+A*Math.sin(ph)+spread;
+      if(px!==null){ hctx.strokeStyle=rgb(ramp(LN_D,L),k?.22:.55); hctx.lineWidth=k?1:1.5+3*uu; hctx.lineCap="round"; hctx.beginPath(); hctx.moveTo(px,py); hctx.lineTo(x,y); hctx.stroke(); }
+      px=x; py=y;
+    }
+  }
+}
+
+/* ---------------- home ---------------- */
+var tline=$("tline"), cv=$("lineCv"), ctx=cv.getContext("2d"), rowsEl=$("rows");
+var pts=[], PH=[], UL=[], YR=[], STEP=4, Htot=0, mouse={on:false,x:0,y:0}, hover=-1, raf=0;
+function buildRows(){
+  rowsEl.innerHTML="";
+  var side=0;
+  IT.forEach(function(x,i){
+    if(x.only==="sec") return;
+    var K=KIND[x.k], r=el("div","row "+(side++%2?"R":"L")+(x.gate?" gate":"")); r.dataset.i=i;
+    var title = K.v ? '<a href="#'+K.v+'" data-go="'+K.v+'" data-id="'+x.id+'">'+tr(x.t)+'</a>' : tr(x.t);
+    var it=el("div","it"); it.style.setProperty("--k","var("+K.c+")");
+    it.innerHTML='<h3>'+title+'</h3><div class="when"><i class="dot" style="background:var('+K.c+')"></i><span>'+(x.k==="h"?tr(x.s):tr(K.n))+'</span><span>·</span><span>'+dm(x.w)+'</span></div><div class="rl">'+tr(x.role)+'</div><div class="ent">'+ents(x.e)+(x.prog?'<span>'+tr(x.prog)+'</span>':'')+'</div>';
+    it.onmouseenter=function(){ hover=i; }; it.onmouseleave=function(){ if(hover===i) hover=-1; };
+    r.appendChild(it); rowsEl.appendChild(r);
+  });
+  var n=el("div","now-row"); n.innerHTML='<b>'+u("hoy")+'</b><p>'+u("next")+'</p>'; rowsEl.appendChild(n);
+}
+function narrow(){ return window.innerWidth<=860; }
+function measure(){
+  if(cur!=="inicio") return;
+  sizeHero();
+  var d=Math.min(window.devicePixelRatio||1,1.75), w=tline.clientWidth, h=window.innerHeight;
+  cv.width=Math.round(w*d); cv.height=Math.round(h*d); ctx.setTransform(d,0,0,d,0,0);
+  Htot=tline.offsetHeight; pts=[];
+  var base=tline.getBoundingClientRect().top;
+  rowsEl.querySelectorAll(".row").forEach(function(r){
+    var c=r.firstElementChild, cr=c.getBoundingClientRect(), x=IT[+r.dataset.i];
+    pts.push({y:cr.top-base+12,h:cr.height,yr:x.a,i:+r.dataset.i,L:r.classList.contains("L"),cx0:cr.left,cx1:cr.right,el:c,gate:x.gate});
+  });
+  var nr=rowsEl.querySelector(".now-row"); if(nr) pts.push({y:nr.getBoundingClientRect().top-base+110,yr:Y1,i:-1});
+  var n=Math.ceil(Htot/STEP)+2, p=0, k=0, nw=narrow(); PH=new Float32Array(n); UL=new Float32Array(n); YR=new Float32Array(n);
+  for(var j=0;j<n;j++){
+    var y=j*STEP; while(k<pts.length-1&&pts[k+1].y<y) k++;
+    var yr; if(!pts.length||y<=pts[0].y) yr=Y0; else if(k>=pts.length-1) yr=pts[pts.length-1].yr;
+    else { var A=pts[k],B=pts[k+1]; yr=A.yr+(B.yr-A.yr)*((y-A.y)/Math.max(1,B.y-A.y)); }
+    var uu=(lvl(yr)-160)/140; UL[j]=uu; YR[j]=yr;
+    p+=2*Math.PI*STEP/((nw?190:260)-(nw?130:185)*uu); PH[j]=p;   /* the wave tightens as the level rises */
+  }
+  draw(performance.now());
+}
+function xAt(y,now,cx){
+  var j=Math.max(0,Math.min(UL.length-1,Math.round(y/STEP))), uu=UL[j];
+  var x=cx+(narrow()?10:28)*(1-.5*uu)*Math.sin(PH[j]-(RM?0:now*.0011*(1+1.2*uu)));
+  if(mouse.on&&!narrow()) x+=(mouse.x-cx)*.1*Math.exp(-Math.pow((y-mouse.y)/170,2));
+  return x;
+}
+var RND=[]; (function(){ var s=7; function r(){ s=(s*1664525+1013904223)%4294967296; return s/4294967296; } for(var i=0;i<70;i++) RND.push([r(),r(),.5+r()]); })();
+function stageW(yr){
+  var w=[0,0,0,0], g=GATES, idx=0; for(var i=1;i<g.length;i++) if(yr>=g[i]) idx=i;
+  w[idx]=1; var f=.9;
+  if(idx<3&&g[idx+1]-yr<f){ var a=1-(g[idx+1]-yr)/f; w[idx]=1-a*.5; w[idx+1]=a*.5; }
+  if(idx>0&&yr-g[idx]<f){ var b=(yr-g[idx])/f; w[idx]=.5+b*.5; w[idx-1]=(1-b)*.5; }
+  return w;
+}
+function draw(now){
+  var w=tline.clientWidth, vh=window.innerHeight, s=-tline.getBoundingClientRect().top, cx=narrow()?26:w/2;
+  drawHero(now,window.scrollY);
+  ctx.clearRect(0,0,w,vh);
+  if(!UL.length) return;
+  var yP=Math.max(0,Math.min(Htot,s+vh*.52)), jP=Math.min(UL.length-1,Math.round(yP/STEP)), yrP=s<-vh*.5?Y0:YR[jP], uP=(lvl(yrP)-160)/140;
+  var bg=ramp(BG,yrP), lt=wantsDark(bg);
+  if(lt!==lite){ lite=lt; document.body.classList.toggle("lite",lite); }
+  var fg=lite?FG_L:FG_D;
+  document.body.style.setProperty("--bg",rgb(bg)); document.body.style.setProperty("--fg",rgb(fg));
+  var y0=Math.max(0,s-40), y1=Math.min(Htot,s+vh+40), W=stageW(yrP), i, k;
+
+  /* what moves behind the line, one language per stage */
+  if(W[0]>.02){ // slow embers rising
+    for(i=0;i<RND.length;i++){ var r=RND[i], px=r[0]*w, py=((r[1]*vh*1.3-(RM?0:now*.012*r[2])-s*.25*r[2])%(vh*1.3)+vh*1.3)%(vh*1.3)-vh*.15;
+      ctx.fillStyle=rgb(ramp(LN_D,165),W[0]*.35); ctx.beginPath(); ctx.arc(px,py,1.1+r[2],0,7); ctx.fill(); } }
+  if(W[1]>.02){ // branches reaching out
+    for(k=Math.floor(y0/130);k*130<y1;k++){ var yb=k*130, xb=xAt(yb,now,cx), sd=k%2?1:-1, len=(narrow()?60:150)+60*Math.sin(k*1.7);
+      ctx.strokeStyle=rgb(fg,W[1]*.16); ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(xb,yb-s); ctx.quadraticCurveTo(xb+sd*len*.5,yb-s-10,xb+sd*len,yb-s-70); ctx.stroke();
+      ctx.fillStyle=rgb(fg,W[1]*.3); ctx.beginPath(); ctx.arc(xb+sd*len,yb-s-70,2,0,7); ctx.fill(); } }
+  if(W[2]>.02){ // level strata
+    for(k=Math.floor(y0/52);k*52<y1;k++){ var ys=k*52-s, gp=narrow()?30:150; ctx.strokeStyle=rgb(fg,W[2]*.1); ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(0,ys); ctx.lineTo(cx-gp,ys); ctx.moveTo(cx+gp,ys); ctx.lineTo(w,ys); ctx.stroke(); } }
+  if(W[3]>.02){ // wide slow ripples from the present
+    for(k=0;k<6;k++){ var rr=((RM?0:now*.022)+k*110)%660; ctx.strokeStyle=rgb(lnc(300),W[3]*.22*(1-rr/660)); ctx.lineWidth=1.3; ctx.beginPath(); ctx.arc(xAt(yP,now,cx),yP-s,rr,0,7); ctx.stroke(); } }
+
+  /* thresholds: a line of light where a stage opens */
+  pts.forEach(function(p){ if(!p.gate||p.y<y0-80||p.y>y1+80) return; var yy=p.y-s-(narrow()?40:64), c=lnc(lvl(p.yr)), g=ctx.createLinearGradient(0,0,w,0);
+    g.addColorStop(0,rgb(c,0)); g.addColorStop(.5,rgb(c,.85)); g.addColorStop(1,rgb(c,0));
+    ctx.strokeStyle=g; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(0,yy); ctx.lineTo(w,yy); ctx.stroke();
+    var rg=ctx.createRadialGradient(cx,yy,0,cx,yy,narrow()?90:220); rg.addColorStop(0,rgb(c,.2)); rg.addColorStop(1,rgb(c,0)); ctx.fillStyle=rg; ctx.fillRect(0,yy-220,w,440); });
+
+  /* the line: two echoes that close in on it as it grows denser */
+  var xs=[], ys=[];
+  for(var y=y0;y<=y1;y+=STEP){ xs.push(xAt(y,now,cx)); ys.push(y); }
+  function stroke(off,alpha,thick){
+    for(var q=1;q<xs.length;q++){
+      var j=Math.min(UL.length-1,Math.round(ys[q]/STEP)), uu=UL[j], lived=ys[q]<=yP, e=off*(narrow()?.5:1)*(4+18*(1-uu));
+      ctx.strokeStyle=rgb(lnc(160+140*uu),lived?alpha:alpha*.28); ctx.lineWidth=thick(uu); ctx.lineCap="round";
+      ctx.beginPath(); ctx.moveTo(xs[q-1]+e,ys[q-1]-s); ctx.lineTo(xs[q]+e,ys[q]-s); ctx.stroke();
+    }
+  }
+  stroke(1,.32,function(){ return 1; }); stroke(-1,.32,function(){ return 1; });
+  stroke(0,.08,function(uu){ return (2+5.5*uu)*4; });
+  stroke(0,1,function(uu){ return 2+5.5*uu; });
+
+  /* nodes, threads, and how each item surfaces and dissolves */
+  pts.forEach(function(p){
+    if(p.i<0) return;
+    var vis=p.y>y0-120&&p.y<y1+120;
+    if(p.el){
+      if(!vis||RM){ if(p.el.style.opacity!==""){ p.el.style.opacity=""; p.el.style.transform=""; p.el.style.filter=""; } }
+      else { var f=(p.y-s)/vh, a=Math.min(1,Math.max(0,(1.0-f)/.2)), b=Math.min(1,Math.max(0,(f-.05)/.17)), op=a*b;
+        p.el.style.opacity=op.toFixed(3); p.el.style.transform="translateY("+((1-a)*26-(1-b)*18).toFixed(1)+"px)"; p.el.style.filter=op>.98?"":"blur("+((1-op)*5).toFixed(2)+"px)"; }
+    }
+    if(!vis) return;
+    var x=xAt(p.y,now,cx), col=kc(IT[p.i].k), tt=T(p.yr), lived=p.y<=yP, hv=hover===p.i, ex=narrow()?p.cx0-8:(p.L?p.cx1+10:p.cx0-10);
+    ctx.strokeStyle=col; ctx.globalAlpha=hv?1:(lived?.6:.22); ctx.lineWidth=hv?2.2:1;
+    ctx.beginPath(); ctx.moveTo(x,p.y-s); ctx.quadraticCurveTo((x+ex)/2,p.y-s-(hv?0:10),ex,p.y-s); ctx.stroke();
+    var r=(p.gate?6.5:4)+2.2*tt;
+    ctx.globalAlpha=lived?1:.4; ctx.fillStyle=rgb(bg); ctx.beginPath(); ctx.arc(x,p.y-s,r+2.5,0,7); ctx.fill();
+    ctx.fillStyle=col; ctx.beginPath(); ctx.arc(x,p.y-s,r,0,7); ctx.fill();
+    if(hv&&!RM){ var q=(now/28)%20; ctx.globalAlpha=1-q/20; ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(x,p.y-s,r+4+q,0,7); ctx.stroke(); }
+    ctx.globalAlpha=1;
+  });
+
+  /* the present moment */
+  var on=s>-vh*.45&&s<Htot-vh*.4; $("hud").classList.toggle("on",on);
+  if(s+vh*.52>0&&s+vh*.52<Htot){
+    var hx=xAt(yP,now,cx), hr=5+7*uP, hc=lnc(lvl(yrP));
+    ctx.fillStyle=rgb(hc,.25); ctx.beginPath(); ctx.arc(hx,yP-s,hr*(2.2+(RM?0:.35*Math.sin(now*.004))),0,7); ctx.fill();
+    ctx.fillStyle=rgb(hc); ctx.beginPath(); ctx.arc(hx,yP-s,hr,0,7); ctx.fill(); ctx.strokeStyle=rgb(fg); ctx.lineWidth=1.5; ctx.stroke();
+    $("hudY").textContent=Math.min(2026,Math.floor(yrP)); $("hudB").style.width=(T(yrP)*100)+"%";
+  }
+}
+function loop(now){ raf=0; if(cur!=="inicio"||document.hidden) return; draw(now); raf=requestAnimationFrame(loop); }
+function startLoop(){ if(RM){ draw(0); return; } if(!raf) raf=requestAnimationFrame(loop); }
+window.addEventListener("scroll",function(){ if(cur==="inicio"&&RM) draw(0); },{passive:true});
+document.addEventListener("visibilitychange",function(){ if(!document.hidden&&cur==="inicio") startLoop(); });
+var rz, lastW=window.innerWidth; window.addEventListener("resize",function(){ clearTimeout(rz); rz=setTimeout(function(){ var wd=window.innerWidth; measure(); if(SECS[cur]&&wd!==lastW) buildSection(cur); lastW=wd; },160); });
+tline.addEventListener("pointermove",function(e){ if(e.pointerType==="touch") return; var r=tline.getBoundingClientRect(); mouse.on=true; mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; });
+tline.addEventListener("pointerleave",function(){ mouse.on=false; });
+
+/* ---------------- section pages ---------------- */
+var sel={};
+function buildSection(v){
+  var Sx=SECS[v], host=document.querySelector("#"+v+" .wrap"), list=lists(v);
+  if(sel[v]==null||sel[v]>=list.length){ sel[v]=list.length-1; while(sel[v]>0&&list[sel[v]].only) sel[v]--; }
+  var y0=Math.floor(list[0].a), y1=2027, span=y1-y0, pad=14, avail=Math.max(300,host.clientWidth-parseFloat(getComputedStyle(host).paddingLeft)*2);
+  var PX=Math.max(narrow()?52:0,(avail-pad*2)/span), RH=narrow()?32:36, TOP=34, lanes=[];
+  var mks=v==="proyectos"?IT.filter(function(x){ return x.pm; }):[]; if(mks.length) TOP+=RH;
+  var heads="", nl;
+  if(Sx.lanes){
+    RH=narrow()?38:44; var row=0;
+    Sx.lanes.forEach(function(L,li){ var lr=[], top=row;
+      list.forEach(function(x){ if(!L.f(x)) return; var x0=(x.a-y0)*PX+pad, bw=L.mk?16:Math.max(34,(x.b-x.a)*PX), l=0;
+        if(L.mk) x0-=8; while(lr[l]!=null&&lr[l]>x0-(L.mk?4:16)) l++; lr[l]=x0+bw; x._x=x0; x._w=bw; x._l=row+1+l; x._c=L.c; });
+      row+=1+lr.length;
+      heads+='<span class="lane'+(li%2?" alt":"")+'" style="top:'+(TOP+top*RH)+'px;height:'+((row-top)*RH)+'px"><b>'+tr(L.n)+'</b></span>'; });
+    nl=row;
+  } else {
+    list.forEach(function(x,i){
+      var x0=(x.a-y0)*PX+pad, bw=Math.max(22,(x.b-x.a)*PX), l=i;
+      if(Sx.pack){ l=0; while(lanes[l]!=null&&lanes[l]>x0-10) l++; lanes[l]=x0+bw; }
+      x._x=x0; x._w=bw; x._l=l;
+    });
+    nl=Sx.pack?lanes.length:list.length;
+  }
+  var H=TOP+nl*RH+28, Wd=span*PX+pad*2, g=heads;
+  for(var y=y0;y<=y1;y++) g+='<span class="gl'+((y-y0)%2?" odd":"")+'" style="left:'+((y-y0)*PX+pad)+'px"><em>'+y+'</em></span>';
+  if(!Sx.lanes) for(var t=0;t<nl;t++) g+='<span class="trk" style="top:'+(TOP+t*RH+RH/2)+'px"></span>';
+  g+='<span class="today" style="left:'+((NOW-y0)*PX+pad)+'px"><em>'+u("hoy")+'</em></span>';
+  function pop(x){ return '<span class="nm"><b>'+tr(x.t)+'</b><small>'+dm(x.w)+(x.w2?' · '+tr(x.w2):'')+'</small><em>'+tr(x.role)+'</em></span>'; }
+  function cls(x0,l){ return (x0+260>Wd?" rt":"")+(l<2?" dn":""); }
+  var bars=list.map(function(x,i){ return '<button type="button" class="bar'+cls(x._x,x._l)+(x._c?" "+x._c:"")+'" data-n="'+i+'" aria-label="'+tr(x.t)+', '+dm(x.w)+'" style="left:'+x._x+'px;top:'+(TOP+x._l*RH+(RH-32)/2)+'px;width:'+x._w+'px;--i:'+i+'"><i></i>'+pop(x)+'</button>'; }).join("");
+  bars+=mks.map(function(x,i){ var x0=(x.a-y0)*PX+pad; return '<span class="mk'+cls(x0,0)+'" tabindex="0" style="left:'+x0+'px;top:'+(34+(RH-32)/2)+'px;--i:'+i+'"><i></i>'+pop(x)+'</span>'; }).join("");
+  host.innerHTML='<div class="shead"><h2><span>'+tr(Sx.n)+'</span></h2><p class="lead">'+tr(Sx.lead)+'</p><p class="sprof">'+tr(Sx.prof)+'</p><div class="kpis">'+kpis(v)+'</div></div>'+
+    '<div class="band c-'+v+'" id="g-'+v+'" tabindex="0" aria-label="'+u("tl")+' · '+tr(Sx.n)+'"><div class="chart" style="width:'+Wd+'px;height:'+H+'px">'+g+bars+'</div></div>'+
+    '<div class="det" id="s-'+v+'"></div>';
+  host.querySelectorAll(".bar").forEach(function(b){ b.onclick=function(){ pick(v,+b.dataset.n,true); }; });
+  $("g-"+v).addEventListener("keydown",function(e){ if(e.key==="ArrowRight"){ e.preventDefault(); pick(v,sel[v]+1,true);} if(e.key==="ArrowLeft"){ e.preventDefault(); pick(v,sel[v]-1,true);} });
+  pick(v,sel[v],false);
+}
+function selectById(v,id){ var n=-1; lists(v).forEach(function(x,i){ if(x.id===id) n=i; }); if(n>=0) pick(v,n,true); }
+function pick(v,n,anim){
+  var list=lists(v), Sx=SECS[v]; n=Math.max(0,Math.min(list.length-1,n)); sel[v]=n; var x=list[n];
+  var g=$("g-"+v); if(!g) return;
+  g.querySelectorAll(".bar").forEach(function(b){ b.classList.toggle("on",+b.dataset.n===n); });
+  var bo=g.querySelector(".bar.on"); if(bo&&g.scrollWidth>g.clientWidth) g.scrollTo({left:Math.max(0,Math.min(bo.offsetLeft-g.clientWidth*.3,bo.offsetLeft+bo.offsetWidth-g.clientWidth*.8)),behavior:anim&&!RM?"smooth":"auto"});
+  function row(l,val,c){ return val?'<div><dt>'+l+'</dt><dd'+(c?' class="'+c+'"':'')+'>'+val+'</dd></div>':''; }
+  var rows=row(u("lugar"),x.pl);
+  if(v==="proyectos") rows+=row(u("ben"),tr(x.ben))+row(u("usd"),x.usd?usd(x.usd)+'<small class="src">'+tr(x.src)+'</small>':u("pc"),x.usd?"":"pend")+hrow();
+  if(v==="docencia") rows+=row(u("prog"),tr(x.prog))+(x.h?row(u("horas"),x.h+" h"):"")+row(u("est"),x.st?fmt(x.st):u("pc"),x.st?"":"pend");
+  function hrow(){ return row(u("hw"),x.h?fmt(x.h)+" h"+(x.hm?'<small class="src">'+x.hm[0]+' h/'+(LANG==="en"?"month":"mes")+' × '+fmt(x.hm[1])+(LANG==="en"?" months":" meses")+'</small>':(x.w2?'<small class="src">'+tr(x.w2)+'</small>':'')):u("pc"),x.h?"":"pend"); }
+  if(v==="implementador") rows+=row(u("antes"),tr(x.bf))+row(u("desp"),tr(x.af))+(x.usd?row(u("usd"),usd(x.usd)+'<small class="src">'+tr(x.src)+'</small>'):"")+hrow();
+  var slots=Sx.slots===2?'<div class="slot"><b>'+u("then")+'</b></div><div class="slot"><b>'+u("hoy")+'</b></div>':'<div class="slot"><b>'+u("img")+'</b></div>';
+  var st=$("s-"+v);
+  st.innerHTML='<div class="dl"><div class="yr">'+Math.floor(x.a)+'</div><div class="ents">'+ents(x.e)+'</div><h3>'+tr(x.t)+'</h3><div class="when">'+dm(x.w)+'</div><div class="rl">'+tr(x.role)+'</div><p class="desc">'+tr(x.ds)+'</p><dl>'+rows+'</dl>'+
+    '<div class="snav"><button type="button" class="pv" aria-label="'+u("prev")+'">←</button><span>'+String(n+1).padStart(2,"0")+' / '+String(list.length).padStart(2,"0")+'</span><button type="button" class="nx" aria-label="'+u("nxt")+'">→</button></div></div><div class="dr" aria-hidden="true">'+slots+'</div>';
+  st.querySelector(".pv").onclick=function(){ pick(v,n-1,true); }; st.querySelector(".nx").onclick=function(){ pick(v,n+1,true); };
+  st.classList.remove("show"); void st.offsetWidth; st.classList.add("show");
+}
+
+/* ---------------- cv ---------------- */
+var CO=["Colombia","Colombia"];
+var JOBS=[
+ [["Senior Project Manager","Senior Project Manager"],["epg","merkur"],["Malta","Malta"],"27 Jul 2023 — 30 Sep 2026",
+  [["Más de 20 integraciones entregadas, entre ellas SWIFT y el Banco Central de Malta, y Volt como Delivery Lead.","20+ integrations delivered, including SWIFT and the Central Bank of Malta, and Volt as Delivery Lead."],["Defectos activos reducidos de unos 45 a 5 o 6 con un nuevo flujo de triage.","Active defects cut from about 45 to 5–6 with a new triage flow."],["Alineación ante incidentes reducida de 1–2 días a unas 2 horas.","Incident alignment cut from 1–2 days to about 2 hours."]],
+  [["Dirigir la entrega de la billetera paylado, el portal de comercios y el back office con tres equipos Scrum (~30 personas).","Lead delivery of the paylado wallet, merchant portal and back office with three Scrum teams (~30 people)."],["Gobierno de proyectos, riesgos, dependencias y reportes a dirección; iniciativas de KYC y DORA.","Project governance, risks, dependencies and executive reporting; KYC and DORA initiatives."],["Automatizar el seguimiento con IA sobre Jira, Confluence y Slack.","Automate tracking with AI on top of Jira, Confluence and Slack."]]],
+ [["Consultor senior","Senior Consultant"],["callme"],CO,"2 Ago 2018 — Ago 2022",
+  [["Campaña multicanal de atención a afectados por COVID-19 para la Gobernación de La Guajira (2020).","Multichannel COVID-19 response campaign for the Government of La Guajira (2020)."],["Campaña multicanal de citas de salud para la IPS Comfaguajira (2021).","Multichannel health-appointment campaign for IPS Comfaguajira (2021)."],["Más de 10 líneas de servicio digital y 20 empleos; empresa ganadora de Fondo Emprender 2018.","10+ digital service lines and 20 jobs; Fondo Emprender 2018 award."]],
+  [["Diseñar campañas de atención con IVR, bots, llamadas y chats.","Design service campaigns with IVR, bots, calls and chat."],["Definir costos, precios, procesos y la arquitectura tecnológica del servicio.","Define costs, pricing, processes and the service's technology architecture."]]],
+ [["Jefe de Sección de Programas y Proyectos Sociales","Head of Social Programmes and Projects"],["comfa"],CO,"Abr 2017 — 16 Ago 2022",
+  [["Más de 35.000 beneficiarios atendidos desde 2017.","35,000+ beneficiaries served since 2017."],["Más de 20 proyectos ejecutados y cerrados sin hallazgos abiertos.","20+ projects delivered and closed with no open audit findings."],["Más de 10.000 millones de pesos gestionados para nuevos programas.","COP 10+ billion secured for new programmes."]],
+  [["Administrar el fondo FONIÑEZ y el portafolio de programas sociales.","Manage the FONIÑEZ fund and the social programme portfolio."],["Presupuesto, contratos, control de cambios e informes a financiadores y entes de control.","Budget, contracts, change control and reporting to funders and oversight bodies."],["Coordinar más de cinco equipos multidisciplinarios y a los operadores.","Coordinate 5+ multidisciplinary teams and the delivery partners."]]],
+ [["Jefe de Gestión de Proyectos · Líder de PMO","Head of Project Management · PMO Lead"],["comfa"],CO,"1 Jul 2012 — 31 Mar 2017",
+  [["Oficina de proyectos diseñada e implementada desde cero.","Project office designed and implemented from scratch."],["Más de 50 proyectos corporativos gestionados en cinco años; más de 20 gerentes formados.","50+ corporate projects managed in five years; 20+ project managers trained."],["Gerencia de La Guajira Vive Digital con el Ministerio TIC.","Managed La Guajira Vive Digital with the ICT Ministry."]],
+  [["Modelo de gobierno, metodología, plantillas e indicadores.","Governance model, methodology, templates and KPIs."],["Pre-evaluación de inversiones y casos de negocio para la junta directiva.","Investment pre-appraisal and business cases for the board."],["Seguimiento y cierre de proyectos de salud, educación, construcción y TI.","Monitoring and closure of health, education, construction and IT projects."]]],
+ [["Gerente","Managing Director"],["gecco"],CO,"18 Jul 2012 — 2019",
+  [["Certificación ISO 9001 de CIAT Riohacha en 2013.","ISO 9001 certification for CIAT Riohacha in 2013."],["Sistemas de gestión para Coopesagua, Enrique Griego Barros, Frigorinus y la planta de Tauramena.","Management systems for Coopesagua, Enrique Griego Barros, Frigorinus and the Tauramena plant."]],
+  [["Dirigir cada consultoría de la propuesta al cierre.","Lead each consultancy from proposal to closure."],["Diagnóstico, diseño, implementación y auditoría de sistemas de gestión.","Assessment, design, implementation and audit of management systems."]]],
+ [["Analista de Calidad","Quality Analyst"],["comfa"],CO,"14 Abr 2009 — 30 Jun 2012",
+  [["Diseño, implementación y certificación del sistema de gestión de calidad.","Designed, implemented and certified the quality management system."],["Tablero corporativo de indicadores de calidad.","Corporate quality KPI dashboard."],["Líder de equipo auditor en más de 10 auditorías internas.","Audit team lead on 10+ internal audits."]],
+  [["Documentar, medir y mejorar procesos con sus líderes.","Document, measure and improve processes with their owners."],["Auditoría interna, acciones de mejora y seguimiento de riesgos.","Internal audit, improvement actions and risk follow-up."]]]
+];
+var SIDE=[
+ [["Habilidades","Skills"],[[["Dirección de proyectos y portafolios","Project and portfolio management"]],[["PMO y gobierno de proyectos","PMO and project governance"]],[["Formulación y evaluación financiera","Project design and financial appraisal"]],[["Entrega ágil: Scrum y Kanban","Agile delivery: Scrum and Kanban"]],[["Sistemas de gestión ISO y auditoría","ISO management systems and audit"]],[["Gestión de fondos públicos","Public fund management"]],[["Docencia y formación","Teaching and training"]]]],
+ [["Formación","Education"],[[["Magíster en Gerencia de Proyectos Industriales","Master's in Industrial Project Management"],"URBE, Maracaibo · 7 May 2011"],[["Ingeniero Industrial","BSc Industrial Engineering"],"Universidad de La Guajira · 14 Jul 2006"]]],
+ [["Certificaciones","Certifications"],[[["Tutor virtual de curso académico","Virtual academic course tutor"],"UNAD · 30 Sep 2008"],[["Auditor interno ISO 9001:2008","ISO 9001:2008 internal auditor"],"INLAC · 2010"],[["Auditor interno HSEQ","HSEQ internal auditor"],"ICONTEC · 2012"],["PMP®","PMI · 19 Ene 2016"],["Scrum Master Professional (SMPC®)",["CertiProf · 2022, renovada en 2026","CertiProf · 2022, renewed 2026"]],["PMO Practitioner","Wellingtone · 6 Abr 2023"],[["Inglés Michigan (MET) · B2","English, Michigan (MET) · B2"],"Michigan Language Assessment · 26 Jun 2025"],["PMI-ACP®","PMI · 10 Nov 2026"]]],
+ [["Formación complementaria","Further training"],[[["Acciones Correctivas y Preventivas","Corrective and Preventive Action"],"ICONTEC · 2008"],[["Indicadores de Gestión","Management Indicators"],"ICONTEC · 2009"],[["Administración Integral de Riesgos","Integrated Risk Management"],"AUDISIS · 2010"],[["Taller de estructuración de proyectos de CT+I en el Caribe","Workshop on structuring science, technology and innovation projects"],"Universidad del Norte · 2012"],[["Diseño y Desarrollo en ISO 9001:2008","Design and Development under ISO 9001:2008"],"INLAC · 2012"],[["Actualización ISO 9001:2015 e ISO 14001:2015","ISO 9001:2015 and ISO 14001:2015 update"],"ICONTEC · 11 — 12 Mar 2016"],[["Diplomado Consultor y coach en gestión de proyectos (65 h)","Diploma: project management consultant and coach (65 h)"],"Jun — Ago 2018"]]],
+ [["Herramientas","Tools"],[["Jira · Confluence · Atlassian Rovo · Slack"],[["Excel financiero · Power BI · MS Project","Financial Excel · Power BI · MS Project"]],["Claude · ChatGPT"]]],
+ [["Idiomas","Languages"],[[["Español","Spanish"],["Nativo","Native"]],[["Inglés","English"],"B2 · Michigan (MET)"]]]
+];
+function buildCV(){
+  function li(a){ return "<li>"+tr(a)+"</li>"; }
+  var jobs=JOBS.map(function(j,i){ return '<div class="job" style="--dl:-'+(i*1.5)+'s"><h3>'+tr(j[0])+'</h3><div class="co">'+j[1].map(function(k){ var e=E[k]; return e[1]?'<a href="'+e[1]+'" target="_blank" rel="noopener">'+e[0]+'</a>':e[0]; }).join(" · ")+'</div><div class="wh">'+tr(j[2])+' · '+dm(j[3])+'</div><h4>'+u("logros")+'</h4><ul>'+j[4].map(li).join("")+'</ul><h4>'+u("func")+'</h4><ul>'+j[5].map(li).join("")+'</ul></div>'; }).join("");
+  var side=SIDE.map(function(g){ return '<h3>'+tr(g[0])+'</h3><ul>'+g[1].map(function(i){ var sm=i[1]?dm(tr(i[1])):""; return '<li>'+tr(i[0])+(sm?'<small>'+sm+'</small>':'')+'</li>'; }).join("")+'</ul>'; }).join("");
+  $("cvWrap").innerHTML='<div class="shead"><h2><span>CV</span></h2><p class="prof">'+u("prof")+'</p></div><div class="cv"><div>'+jobs+'</div><div class="side">'+side+'</div></div>';
+}
+
+/* ---------------- start ---------------- */
+function buildStatic(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll("[data-u]").forEach(function(n){ n.innerHTML=u(n.getAttribute("data-u")); });
+  document.querySelectorAll(".lang button").forEach(function(b){ b.classList.toggle("on",b.dataset.l===LANG); b.setAttribute("aria-pressed",b.dataset.l===LANG); });
+  var nav=$("navlinks"); nav.innerHTML=""; nav.setAttribute("aria-label",LANG==="en"?"Sections":"Secciones");
+  NAV.forEach(function(n){ var a=el("a",null,tr(n[1])); a.href="#"+n[0]; a.setAttribute("data-go",n[0]); a.dataset.s=n[0]; if(n[0]===cur) a.className="on"; nav.appendChild(a); });
+  var nc=0; lists("docencia").forEach(function(x){ nc+=x.n||1; });
+  var cl={}; lists("implementador").forEach(function(x){ if(x.cl) cl[x.cl]=1; });
+  $("three").innerHTML=[["proyectos",lists("proyectos").length,"m_p","p"],["docencia",nc,"m_d","d"],["implementador",Object.keys(cl).length,"m_q","q"]].map(function(m){
+    return '<a href="#'+m[0]+'" data-go="'+m[0]+'"><b>'+m[1]+'</b><span><i class="dot" style="background:var('+KIND[m[3]].c+')"></i>'+u(m[2])+'</span></a>'; }).join("");
+  var mk=["comfa","mintic","oit","fa","epg","merkur","uniguajira","unad","sena","pmi","icontec","callme","gob","urbe"].map(function(k){ return '<span class="lg" title="'+E[k][0]+'">'+E[k][2]+'</span>'; }).join("");
+  $("marq").innerHTML=mk+mk;
+  $("legend").innerHTML=["p","d","q","h"].map(function(k){ return '<span><i class="dot" style="background:var('+KIND[k].c+')"></i>'+tr(KIND[k].n)+'</span>'; }).join("");
+}
+function setLang(l){
+  if(l===LANG) return; LANG=l; try{ localStorage.setItem("mc-lang",l); }catch(e){}
+  buildStatic(); buildRows(); buildCV(); if(SECS[cur]) buildSection(cur); measure();
+}
+buildName(); buildStatic(); buildRows(); buildCV();
+var h0=location.hash.slice(1); if(h0&&h0!=="inicio"&&document.getElementById(h0)) show(h0); else { measure(); startLoop(); }
+function favicon(){ try{ var c=document.createElement("canvas"); c.width=c.height=64; var x=c.getContext("2d");
+  x.fillStyle="#f3efe4"; x.beginPath(); if(x.roundRect) x.roundRect(0,0,64,64,14); else x.rect(0,0,64,64); x.fill();
+  x.fillStyle="#15235c"; x.font='700 30px "Fraunces", Georgia, serif'; x.textAlign="center"; x.textBaseline="middle"; x.fillText("MC",32,34);
+  $("fav").href=c.toDataURL("image/png"); $("fav").type="image/png"; }catch(e){} }
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ measure(); favicon(); }); else favicon();
+window.addEventListener("load",function(){ measure(); });
+})();
+</script>
+</body>
+</html>
